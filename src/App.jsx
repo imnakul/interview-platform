@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ContactSection from './components/ContactUs.jsx'
 import SignIn from './components/SignIn.jsx'
 import Register from './components/Register.jsx'
+import AdminScreen from './components/AdminScreen.jsx'
+import UserScreen from './components/UserScreen.jsx'
 
 function App() {
    return (
@@ -18,6 +20,8 @@ function App() {
                   <Route path='/contact' element={<ContactSection />}></Route>
                   <Route path='/signin' element={<SignIn />}></Route>
                   <Route path='/register' element={<Register />}></Route>
+                  <Route path='/admin/:id' element={<AdminScreen />}></Route>
+                  <Route path='/user/:id' element={<UserScreen />}></Route>
                </Routes>
 
                <Footer />

@@ -3,7 +3,7 @@ import { Button, Input, Textarea, Typography } from '@material-tailwind/react'
 
 export function ContactSection() {
    return (
-      <section className='px-8 py-8 lg:py-10'>
+      <section className='px-8 py-8 lg:py-4'>
          <div className='container mx-auto text-center bg-white/20 rounded-md p-4'>
             <Typography
                variant='h1'
@@ -24,7 +24,10 @@ export function ContactSection() {
                   alt='map'
                   className='w-full h-full lg:max-h-[510px] lg:max-w-[510px] ml-24'
                />
-               <form action='#' className='flex flex-col gap-4 lg:max-w-sm'>
+               <form
+                  action='#'
+                  className='flex flex-col gap-4 lg:max-w-md bg-purple-400/20 rounded-md p-2 border-2 border-purple-300'
+               >
                   <Typography
                      variant='small'
                      className='text-left !font-semibold !text-black'

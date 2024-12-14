@@ -19,6 +19,7 @@ function NavList() {
             </a>
          </Typography> */}
          <AvatarWithUserDropdown />
+         <Typography variant='h6'>User Name</Typography>
       </ul>
    )
 }
