@@ -1,15 +1,24 @@
 import './App.css'
-import Navbar from './components/Navbar.jsx'
+import Home from './components/Home.jsx'
 import Footer from './components/Footer.jsx'
+import Navbar from './components/Navbar.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ContactSection from './components/ContactUs.jsx'
 
 function App() {
    return (
       <>
-         <div className='bg-[linear-gradient(109.6deg,_rgb(9,_9,_121)_11.2%,_rgb(144,_6,_161)_53.7%,_rgb(0,_212,_255)_100.2%)] min-h-screen'>
-            <Navbar />
-            <div className='min-w-screen min-h-screen border-2 m-1'></div>
-            <Footer />
-         </div>
+         <Router>
+            <div className='bg-[linear-gradient(109.6deg,_rgb(9,_9,_121)_11.2%,_rgb(144,_6,_161)_53.7%,_rgb(0,_212,_255)_100.2%)] min-h-screen'>
+               <Navbar />
+               <Routes>
+                  <Route path='/' element={<Home />}></Route>
+                  <Route path='/contact' element={<ContactSection />}></Route>
+               </Routes>
+
+               <Footer />
+            </div>
+         </Router>
       </>
    )
 }

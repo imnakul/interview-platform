@@ -38,7 +38,7 @@ export function NavbarSimple() {
    }, [])
 
    return (
-      <Navbar className='mx-auto max-w-screen-xl px-3 py-1'>
+      <Navbar className='mx-auto max-w-screen-xl px-3 py-1 bg-white/50'>
          <div className='flex items-center justify-between text-blue-gray-900'>
             <div className='flex justify-start gap-3'>
                {/* icon */}
