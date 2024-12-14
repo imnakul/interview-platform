@@ -50,7 +50,7 @@ export function NavbarSimple() {
                {/* title  */}
                <Typography
                   as='a'
-                  href='#'
+                  href='/'
                   variant='h5'
                   className='mr-1 cursor-pointer py-1.5'
                >
