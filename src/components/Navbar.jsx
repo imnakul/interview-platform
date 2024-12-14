@@ -38,14 +38,14 @@ export function NavbarSimple() {
    }, [])
 
    return (
-      <Navbar className='mx-auto max-w-screen-xl px-4 py-1'>
+      <Navbar className='mx-auto max-w-screen-xl px-3 py-1'>
          <div className='flex items-center justify-between text-blue-gray-900'>
             <div className='flex justify-start gap-3'>
                {/* icon */}
                <img
                   src='/online-interview.gif'
                   alt=''
-                  className='contain h-10 w-10 border-2 border-black rounded-md'
+                  className='contain h-10 w-10 border-2 border-black rounded'
                />
                {/* title  */}
                <Typography
