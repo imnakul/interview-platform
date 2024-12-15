@@ -2,10 +2,30 @@ import {
    Card,
    Input,
    Checkbox,
+   Radio,
    Button,
    Typography,
 } from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
+
+function Icon() {
+   return (
+      <svg
+         xmlns='http://www.w3.org/2000/svg'
+         fill='none'
+         viewBox='0 0 24 24'
+         stroke-width='1.5'
+         stroke='currentColor'
+         class='size-6'
+      >
+         <path
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            d='M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
+         />
+      </svg>
+   )
+}
 
 function Register() {
    const navigate = useNavigate()
@@ -51,41 +71,43 @@ function Register() {
                   type='password'
                   size='lg'
                   placeholder='********'
-                  className=' !border-t-blue-gray-200 focus:!border-t-gray-900 text-cyan-200'
+                  className=' border-2 border-black text-cyan-200'
                   labelProps={{
                      className: 'before:content-none after:content-none',
                   }}
                />
             </div>
-            <Checkbox
-               label={
-                  <Typography
-                     variant='small'
-                     color='black'
-                     className='flex items-center font-normal'
-                  >
-                     I agree the
-                     <a
-                        href='#'
-                        className='font-medium transition-colors hover:text-white'
-                     >
-                        &nbsp;Terms and Conditions
-                     </a>
-                  </Typography>
-               }
-               containerProps={{ className: '-ml-2.5' }}
-            />
-            <Button className='mt-6' fullWidth>
+            <div className='mt-4 flex items-center justify-evenly  gap-4'>
+               <Radio
+                  name='type'
+                  icon={<Icon />}
+                  label={
+                     <Typography className='text-white hover:before:opacity-0'>
+                        Admin
+                     </Typography>
+                  }
+               />
+               <Radio
+                  name='type'
+                  icon={<Icon />}
+                  label={
+                     <Typography className='text-white hover:before:opacity-0'>
+                        User
+                     </Typography>
+                  }
+               />
+            </div>
+            <Button className='mt-4' fullWidth>
                sign up
             </Button>
-            <Typography color='black' className='mt-4 text-center font-normal'>
+            <Typography color='black' className='mt-3 text-center font-normal'>
                Already have an account?{' '}
                <a
                   href='#'
-                  className='font-bold text-green-500 hover:text-white'
+                  className='font-bold text-green-300 hover:text-white'
                   onClick={(e) => {
                      e.preventDefault()
-                     navigate('/singin')
+                     navigate('/signin')
                   }}
                >
                   Sign In
