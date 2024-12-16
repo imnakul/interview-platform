@@ -24,7 +24,7 @@ function NavList() {
    )
 }
 
-export function NavbarSimple() {
+export function NavbarSimple({ isLoggedIn }) {
    const [openNav, setOpenNav] = React.useState(false)
 
    const handleWindowResize = () =>
@@ -59,13 +59,9 @@ export function NavbarSimple() {
                </Typography>
             </div>
             {/* Navitemslist  */}
-            <div className='hidden lg:block'>
-               <NavList />
-            </div>
+            <div className='hidden lg:block'>{isLoggedIn && <NavList />}</div>
          </div>
-         <Collapse open={openNav}>
-            <NavList />
-         </Collapse>
+         <Collapse open={openNav}>{isLoggedIn && <NavList />}</Collapse>
       </Navbar>
    )
 }

@@ -15,11 +15,11 @@ function Home() {
             <div className='flex justify-center gap-4 mt-4 mb-20'>
                <div className=' bg-transparent border-black flex justify-center items-center gap-2 p-2 mt-1'>
                   {/* admin  */}
-                  <div className='flex flex-col items-center border border-black p-1 m-1 w-64 rounded-lg  bg-white/40'>
+                  {/* <div className='flex flex-col justify-center items-center border border-black p-1 m-1 w-64 h-80 rounded-lg  bg-white/40'>
                      <img
                         src='/manager.png'
                         alt=''
-                        className='h-30 w-30 mb-2'
+                        className='h-24 w-24 mb-2'
                      />
                      <h2>Admin</h2>
                      <button
@@ -30,7 +30,7 @@ function Home() {
                      >
                         Sign In
                      </button>
-                  </div>
+                  </div> */}
 
                   {/* user  */}
                   <div className='flex flex-col items-center border border-black p-1 m-1 w-64 rounded-lg  bg-white/40'>
@@ -46,7 +46,7 @@ function Home() {
                            navigate('/signin?type=user')
                         }}
                      >
-                        Log In
+                        Sign In
                      </button>
                   </div>
 

@@ -22,7 +22,7 @@ export function ContactSection() {
                <img
                   src='/contact.png'
                   alt='map'
-                  className='w-full h-full lg:max-h-[510px] lg:max-w-[510px] ml-24'
+                  className='w-sm h-sm md:max-h-[510px] md:max-w-[510px] ml-24'
                />
                <form
                   action='#'
