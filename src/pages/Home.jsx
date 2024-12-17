@@ -6,13 +6,16 @@ function Home() {
    return (
       <>
          <div
-            className='flex flex-col align-center min-w-screen min-h-max
+            className=' flex flex-col align-center min-w-screen min-h-max
           border-2 m-2'
          >
-            <h1 className=' text-white mt-10 mb-5 font-extrabold text-7xl text-center'>
-               Welcome
+            <h1 className=' text-white mt-8 mb-4 font-extrabold text-4xl text-center'>
+               Welcome to,
             </h1>
-            <div className='flex justify-center gap-4 mt-4 mb-20'>
+            <h1 className=' text-black mt-0 mb-2 font-extrabold text-6xl text-center'>
+               The Interview Portal
+            </h1>
+            <div className='flex justify-center gap-4 mt-4 mb-16 '>
                <div className=' bg-transparent border-black flex justify-center items-center gap-2 p-2 mt-1'>
                   {/* admin  */}
                   {/* <div className='flex flex-col justify-center items-center border border-black p-1 m-1 w-64 h-80 rounded-lg  bg-white/40'>
@@ -37,9 +40,9 @@ function Home() {
                      <img
                         src='/programmer.png'
                         alt=''
-                        className='h-30 w-30 mb-2'
+                        className='h-30 w-30 mb-3'
                      />
-                     <h2>User</h2>
+
                      <button
                         className='btn btn-ghost bg-yellow-200 border-2 border-red-500 py-1 px-2 rounded-lg mb-2 hover:opacity-80'
                         onClick={() => {
@@ -52,8 +55,8 @@ function Home() {
 
                   {/* new  */}
                   <div className='flex flex-col items-center border border-black p-1 m-1 w-64 rounded-md  bg-white/40'>
-                     <img src='/boy.png' alt='' className='h-30 w-30 mb-2' />
-                     <h2>New</h2>
+                     <img src='/boy.png' alt='' className='h-30 w-30 mb-4' />
+
                      <button
                         className='btn bg-yellow-200 border-2 border-red-500 py-1 px-2 rounded-md mb-2 hover:opacity-80'
                         onClick={() => {
