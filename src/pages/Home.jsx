@@ -9,14 +9,14 @@ function Home() {
             className=' flex flex-col align-center min-w-screen min-h-max
           border-2 m-2'
          >
-            <h1 className=' text-white mt-8 mb-4 font-extrabold text-4xl text-center'>
+            <h1 className=' text-white mt-8 mb-7 font-extrabold text-4xl text-center'>
                Welcome to,
             </h1>
             <h1 className=' text-black mt-0 mb-2 font-extrabold text-6xl text-center'>
                The Interview Portal
             </h1>
-            <div className='flex justify-center gap-4 mt-4 mb-16 '>
-               <div className=' bg-transparent border-black flex justify-center items-center gap-2 p-2 mt-1'>
+            <div className='flex justify-center gap-6 mt-4 mb-16 '>
+               <div className=' bg-transparent border-black flex justify-center items-center gap-5 p-2 mt-1'>
                   {/* admin  */}
                   {/* <div className='flex flex-col justify-center items-center border border-black p-1 m-1 w-64 h-80 rounded-lg  bg-white/40'>
                      <img
@@ -40,7 +40,7 @@ function Home() {
                      <img
                         src='/programmer.png'
                         alt=''
-                        className='h-30 w-30 mb-3'
+                        className='h-30 w-30 mb-4'
                      />
 
                      <button
