@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom'
 function Footer() {
    const navigate = useNavigate()
    return (
-      <footer className='w-full bg-white/50 py-2 px-5'>
+      <footer
+         color='transparent'
+         className='w-full rounded-t-lg bg-white/50 py-2 px-5'
+      >
          <div className='flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between'>
             {/* <img src='/interview.png' alt='logo-ct' className='w-8 h-8' /> */}
             <Typography color='black' className='text-center font-semibold'>

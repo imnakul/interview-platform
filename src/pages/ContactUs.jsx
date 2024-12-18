@@ -1,47 +1,56 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import { useState } from 'react'
 import { Button, Input, Textarea, Typography } from '@material-tailwind/react'
 
 export function ContactSection() {
+   const [isLoggedIn, setIsLoggedIn] = useState(true)
+
    return (
-      <section className='px-8 py-8 lg:py-4'>
-         <div className='container mx-auto text-center bg-white/20 rounded-md p-4'>
-            <Typography
-               variant='h1'
-               color='black'
-               className='mb-4 !text-3xl lg:!text-4xl'
-            >
-               We&apos;re Here to Help
-            </Typography>
-            <Typography className='mb-10 font-normal !text-lg lg:mb-5 mx-auto max-w-3xl !text-white  '>
-               Whether it&apos;s a question about our services, a request for
-               technical assistance, or suggestions for improvement, our team is
-               eager to hear from you.
-            </Typography>
-            {/* form  */}
-            <div className='grid grid-cols-1 gap-x-12 gap-y-6 lg:grid-cols-2 items-start'>
-               <img
-                  src='/contact.png'
-                  alt='map'
-                  className='w-sm h-sm md:max-h-[510px] md:max-w-[510px] ml-24'
-               />
+      <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">
+         <Navbar isLoggedIn={isLoggedIn} />
+
+         {/* outer content box  */}
+         <div className='grid grid-cols-1 bg-white/20 rounded-lg p-2 my-7 mx-56'>
+            <div className='min-w-screen flex gap-16 justify-center '>
+               <div className='flex flex-col items-center justify-center'>
+                  <Typography
+                     variant='h1'
+                     color='black'
+                     className='text-3xl mb-5'
+                  >
+                     We&apos;re Here to Help
+                  </Typography>
+                  <Typography className=' font-normal !text-lg max-w-md !text-white text-center'>
+                     Whether it&apos;s a question about our services, a request
+                     for technical assistance, or suggestions for improvement,
+                     our team is eager to hear from you.
+                  </Typography>
+                  <img
+                     src='/contact.png'
+                     alt='contactImage'
+                     className='w-xl h-xl lg:w-[300px] lg:h-[300px] '
+                  />
+               </div>
                <form
                   action='#'
-                  className='flex flex-col gap-4 lg:max-w-md bg-purple-400/20 rounded-md p-2 border-2 border-purple-300'
+                  className='flex flex-col gap-4 lg:max-w-md bg-purple-400/20 rounded-md px-4 py-6 my-10 border-2 border-purple-300'
                >
-                  <Typography
-                     variant='small'
-                     className='text-left !font-semibold !text-black'
-                  >
-                     Select Options
-                  </Typography>
-                  <div className='flex gap-4'>
-                     <Button variant='outlined' className='max-w-fit'>
-                        General inquiry
-                     </Button>
-                     <Button variant='outlined' className='max-w-fit'>
-                        Product Support
-                     </Button>
-                  </div>
+                  {/* <Typography
+                  variant='small'
+                  className='text-left !font-semibold !text-black'
+               >
+                  Select Options
+               </Typography>
+               <div className='flex gap-4'>
+                  <Button variant='outlined' className='max-w-fit'>
+                     General inquiry
+                  </Button>
+                  <Button variant='outlined' className='max-w-fit'>
+                     Product Support
+                  </Button>
+               </div> */}
                   <div className='grid grid-cols-2 gap-5'>
                      <div>
                         <Typography
@@ -133,7 +142,9 @@ export function ContactSection() {
                </form>
             </div>
          </div>
-      </section>
+
+         <Footer />
+      </div>
    )
 }
 
