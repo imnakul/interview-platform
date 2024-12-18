@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react'
 import GlowingCard from '../components/mini-components/GlowingCard.jsx'
+import { useNavigate } from 'react-router-dom'
 
 const About = () => {
+   const navigate = useNavigate()
    const content = [
       <>
          <h2 class='text-white text-3xl font-extrabold mb-4'>
@@ -58,16 +60,30 @@ const About = () => {
             muted
             playsInline
             className='w-full h-full object-cover fixed top-0 left-0 -z-10'
-            poster='/fallback3.png'
+            poster='/fallback2.png'
          >
-            <source src='/day-night.mp4' type='video/mp4' />
+            <source src='/bg5.mp4' type='video/mp4' />
          </video>
-         <div class='py-8 px-4 mx-auto max-w-screen-xl lg:py-8'>
-            <GlowingCard content={content[3]} />
-            <div class='grid md:grid-cols-3 gap-8'>
-               <GlowingCard content={content[0]} />
-               <GlowingCard content={content[1]} />
-               <GlowingCard content={content[2]} />
+
+         <div className='flex justify-start min-w-screen min-h-full'>
+            <button className='self-start ml-5'>
+               <img
+                  src='/home2.png'
+                  alt=''
+                  className='w-28 h-28 hover:scale-110'
+                  onClick={() => {
+                     navigate('/')
+                  }}
+               />
+            </button>
+            <div class='py-8 px-4 mx-auto max-w-screen-xl lg:py-8 '>
+               <GlowingCard content={content[3]} />
+
+               <div class='grid md:grid-cols-3 gap-8'>
+                  <GlowingCard content={content[0]} />
+                  <GlowingCard content={content[1]} />
+                  <GlowingCard content={content[2]} />
+               </div>
             </div>
          </div>
       </div>
