@@ -39,7 +39,7 @@ const GlowingCard = ({ content }) => {
          ref={cardRef}
          onMouseMove={handleMouseMove}
          onMouseLeave={handleMouseLeave}
-         className='relative bg-transparent/50 border border-gray-200 rounded-xl p-8 md:p-10 mb-8'
+         className='relative bg-transparent/50 rounded-xl p-8 md:p-10 mb-8'
       >
          {/* Border Gradient (Pseudo-element) */}
          {isHovered && (

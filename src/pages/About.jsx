@@ -68,9 +68,9 @@ const About = () => {
          <div className='flex justify-start min-w-screen min-h-full'>
             <button className='self-start ml-5'>
                <img
-                  src='/home2.png'
+                  src='/home5.png'
                   alt=''
-                  className='w-28 h-28 hover:scale-110'
+                  className='w-10 h-10 hover:scale-110 mt-7 border border-black rounded-full'
                   onClick={() => {
                      navigate('/')
                   }}
