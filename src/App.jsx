@@ -7,6 +7,7 @@ import Register from './pages/Register.jsx'
 import AdminScreen from './components/AdminInterviewScreen.jsx'
 import UserScreen from './components/UserInterviewScreen.jsx'
 import About from './pages/About.jsx'
+import ForgotPassword from './components/ForgotPassword.jsx'
 
 // import LightingCard from './components/CardTryOut.jsx'
 
@@ -21,7 +22,9 @@ function App() {
                <Route path='/' element={<Home />}></Route>
                <Route path='/contact' element={<ContactSection />}></Route>
                <Route path='/about' element={<About />}></Route>
-               <Route path='/signin' element={<SignIn />}></Route>
+               <Route path='/signin' element={<SignIn />}>
+                  <Route path='forgotpassword' element={<ForgotPassword />} />
+               </Route>
                <Route path='/register' element={<Register />}></Route>
                <Route path='/admin/:id' element={<AdminScreen />}></Route>
                <Route path='/user/:id' element={<UserScreen />}></Route>
