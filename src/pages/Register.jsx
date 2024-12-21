@@ -1,11 +1,16 @@
 import { Radio, Typography } from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
+import Navbar from '../components/Navbar'
+import { useState } from 'react'
 
 function Register() {
    const navigate = useNavigate()
+   const [isLoggedIn, setIsLoggedIn] = useState(true)
+
    return (
       <>
-         <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center p-6">
+         <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">
+            <Navbar isLoggedIn={isLoggedIn} />
             <form class='max-w-md mx-auto my-5 p-5 bg-white/30 rounded-md'>
                <Typography
                   variant='h3'
@@ -114,14 +119,14 @@ function Register() {
                <div className='inline-flex justify-between items-center mb-0'>
                   <button
                      type='submit'
-                     class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-12'
+                     class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-300 mr-12'
                   >
                      Register
                   </button>
                   Already have an account?
                   <button
                      type='submit'
-                     class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4'
+                     class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-400 ml-4'
                   >
                      <a
                         onClick={(e) => {

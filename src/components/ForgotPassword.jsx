@@ -20,7 +20,7 @@ function ForgotPassword() {
                <Button
                   variant='outlined'
                   size='sm'
-                  className='w-20 h-10 text-md font-bold bg-blue-500 hover:bg-blue-800 text-white p-2 focus:ring-blue-300 focus:outline-none focus:ring-1'
+                  className='w-20 h-10 text-md bg-blue-500 hover:bg-blue-800 text-white p-2 focus:ring-blue-300 focus:outline-none focus:ring-2'
                >
                   Send
                </Button>

@@ -3,6 +3,7 @@ import { Typography, Input, Button, Radio } from '@material-tailwind/react'
 import { EyeSlashIcon, EyeIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import { Outlet, useMatch } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
 function Icon() {
    return (
@@ -24,13 +25,31 @@ function Icon() {
 }
 
 export function SignIn({ type }) {
+   const [isLoggedIn, setIsLoggedIn] = useState(false)
    const matchForgotPassword = useMatch('/signin/forgotpassword')
    const [passwordShown, setPasswordShown] = useState(false)
    const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur)
    const navigate = useNavigate()
 
+   // const handleRadioChange = (e) => {
+   //    setUserType(e.target.value)
+   // }
+
+   // const [userType, setUserType] = useState('user')
+
+   // const handleSubmit = (e) => {
+   //    e.preventDefault()
+   //    setIsLoggedIn(true)
+   //    if (userType === 'Admin') {
+   //       navigate('/admindashboard')
+   //    } else {
+   //       navigate('/userdashboard')
+   //    }
+   // }
+
    return (
-      <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center p-16">
+      <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">
+         <Navbar isLoggedIn={isLoggedIn} />
          {/* static section  */}
          {/* <section className='grid text-center items-center max-w-[28rem] mx-auto mt-0 mb-6 bg-white/40 p-4 rounded-md'> */}
          {matchForgotPassword && <Outlet />}
@@ -38,7 +57,7 @@ export function SignIn({ type }) {
 
          {/* dynamic Form section  */}
          {!matchForgotPassword && (
-            <section className='grid text-center items-center max-w-[28rem] mx-auto mt-0 mb-6 bg-white/40 p-4 rounded-md'>
+            <section className='grid text-center items-center max-w-[28rem] mx-auto mt-6 mb-6 bg-white/40 p-4 rounded-md'>
                <div>
                   <Typography variant='h3' color='blue-gray' className='mb-2'>
                      Sign In
@@ -47,40 +66,49 @@ export function SignIn({ type }) {
                      Enter your email and password to sign in
                   </Typography>
 
-                  <div className='flex justify-center gap-10 mb-2'>
-                     <Radio
-                        name='type'
-                        ripple={true}
-                        icon={<Icon />}
-                        className='border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0 '
-                        label={
-                           <Typography
-                              color='white'
-                              className='font-normal text-white'
-                           >
-                              Admin
-                           </Typography>
-                        }
-                     />
-                     <Radio
-                        name='type'
-                        defaultChecked
-                        ripple={true}
-                        icon={<Icon />}
-                        className='border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0'
-                        label={
-                           <Typography
-                              color='white'
-                              className='font-normal text-white'
-                           >
-                              User
-                           </Typography>
-                        }
-                     />
-                  </div>
+                  <form class='max-w-sm mx-auto'>
+                     <div className='flex justify-center gap-10 mb-2'>
+                        <Radio
+                           name='type'
+                           value='admin'
+                           // checked={userType === 'admin'}
+                           ripple={true}
+                           icon={<Icon />}
+                           className='border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0 '
+                           label={
+                              <Typography
+                                 color='white'
+                                 className='font-normal text-white'
+                              >
+                                 Admin
+                              </Typography>
+                           }
+                           // onChange={handleRadioChange}
+                        />
+                        <Radio
+                           name='type'
+                           value='user'
+                           // checked={userType === 'user'}
+                           ripple={true}
+                           icon={<Icon />}
+                           className='border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0'
+                           label={
+                              <Typography
+                                 color='white'
+                                 className='font-normal text-white'
+                              >
+                                 User
+                              </Typography>
+                           }
+                           // onChange={handleRadioChange}
+                        />
+                     </div>
 
-                  <form action='#' className='mx-auto max-w-[24rem] text-left'>
-                     <form class='max-w-sm mx-auto'>
+                     <form
+                        action='#'
+                        className='mx-auto max-w-[24rem] text-left'
+                        onSubmit={handleSubmit}
+                     >
                         <div class='mb-5'>
                            <label
                               for='email'
@@ -170,7 +198,7 @@ export function SignIn({ type }) {
                         <div className='inline-flex justify-between items-center'>
                            <button
                               type='submit'
-                              class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-1 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-300'
+                              class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-300'
                            >
                               SIGN IN
                            </button>
@@ -179,7 +207,7 @@ export function SignIn({ type }) {
                      <div className='!mt-1 flex justify-end'>
                         <button
                            type='submit'
-                           class='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-1 dark:focus:ring-blue-300'
+                           class='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-2 dark:focus:ring-blue-300'
                            onClick={(e) => {
                               e.preventDefault()
                               navigate('/signin/forgotpassword')
@@ -210,7 +238,7 @@ export function SignIn({ type }) {
                         Not registered?{' '}
                         <button
                            type='submit'
-                           class='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-300 focus:ring-1 ml-4'
+                           class='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-300 focus:ring-2 ml-4'
                            onClick={(e) => {
                               e.preventDefault()
                               navigate('/register')
