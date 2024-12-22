@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 function Register() {
    const navigate = useNavigate()
-   const [isLoggedIn, setIsLoggedIn] = useState(true)
+   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
    return (
       <>

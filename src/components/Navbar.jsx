@@ -41,8 +41,9 @@ export function NavbarSimple({ isLoggedIn }) {
    return (
       <Navbar
          color='transparent'
-         className='mx-auto max-w-screen-xl px-3 py-1 bg-white/50'
+         className='mx-auto max-w-7xl px-3 py-1 bg-white/50'
       >
+         {/* max-w-screen-xl is same as max-w-7xl  */}
          <div className='flex items-center justify-between text-blue-gray-900'>
             <div className='flex justify-start gap-3'>
                {/* icon */}

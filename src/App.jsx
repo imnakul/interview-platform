@@ -10,6 +10,11 @@ import About from './pages/About.jsx'
 import ForgotPassword from './components/ForgotPassword.jsx'
 import AdminDashboard from './pages/AdminDashboard.jsx'
 import UserDashboard from './pages/UserDashboard.jsx'
+import AdminNotes from './components/admindashboardcomponents/AdminNotes.jsx'
+import InterviewsManagement from './components/admindashboardcomponents/InterviewsManagement.jsx'
+import UserManagement from './components/admindashboardcomponents/UserManagement.jsx'
+import ScheduleInterview from './components/admindashboardcomponents/ScheduleInterview.jsx'
+import SelectedUsers from './components/admindashboardcomponents/SelectedUsers.jsx'
 
 // import LightingCard from './components/CardTryOut.jsx'
 
@@ -28,10 +33,19 @@ function App() {
                   <Route path='forgotpassword' element={<ForgotPassword />} />
                </Route>
                <Route path='/register' element={<Register />}></Route>
-               <Route
-                  path='/admindashboard'
-                  element={<AdminDashboard />}
-               ></Route>
+               <Route path='/admindashboard' element={<AdminDashboard />}>
+                  <Route path='usermanagement' element={<UserManagement />} />
+                  <Route
+                     path='interviewsmanagement'
+                     element={<InterviewsManagement />}
+                  />
+                  <Route path='adminnotes' element={<AdminNotes />} />
+                  <Route
+                     path='scheduleinterview'
+                     element={<ScheduleInterview />}
+                  />
+                  <Route path='selectedusers' element={<SelectedUsers />} />
+               </Route>
                <Route path='/userdashboard' element={<UserDashboard />}></Route>
                <Route path='/admin/:id' element={<AdminScreen />}></Route>
                <Route path='/user/:id' element={<UserScreen />}></Route>
