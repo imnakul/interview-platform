@@ -58,16 +58,15 @@ function AdminDashboard() {
                      Welcome Back, Admin
                   </Typography>
                </header>
-               <div className='flex justify-between bg-white/60 min-h-[59vh]'>
+               <div className='flex justify-between bg-transparent min-h-[59vh]'>
                   {/* Sidebar */}
-
-                  <div class='max-w-xs flex flex-col gap-5 rounded-lg shadow-sm w-1/5 p-2 m-2  text-center justify-center bg-white/30'>
+                  <div class='max-w-xs flex flex-col gap-6 rounded-lg shadow-sm w-1/5 p-4 m-2 text-center justify-center bg-white/30'>
                      <button
                         type='button'
                         onClick={() =>
                            navigate('/admindashboard/usermanagement')
                         }
-                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none hover:bg-blue-400 bg-blue-900 text-white'
+                        class='py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none bg-purple-500 hover:bg-purple-700  focus:bg-purple-900 text-white'
                      >
                         User Management
                      </button>
@@ -76,14 +75,14 @@ function AdminDashboard() {
                         onClick={() =>
                            navigate('/admindashboard/interviewsmanagement')
                         }
-                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none hover:bg-blue-400 bg-blue-900 text-white'
+                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none bg-purple-500 hover:bg-purple-700  focus:bg-purple-900 text-white'
                      >
                         Interviews Management
                      </button>
                      <button
                         type='button'
                         onClick={() => navigate('/admindashboard/adminnotes')}
-                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none hover:bg-blue-400 bg-blue-900 text-white'
+                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none bg-purple-500 hover:bg-purple-700  focus:bg-purple-900 text-white'
                      >
                         My Notes
                      </button>
@@ -92,7 +91,7 @@ function AdminDashboard() {
                         onClick={() =>
                            navigate('/admindashboard/scheduleinterview')
                         }
-                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none hover:bg-blue-400 bg-blue-900 text-white'
+                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none bg-purple-500 hover:bg-purple-700  focus:bg-purple-900 text-white'
                      >
                         Schedule an Interview
                      </button>
@@ -101,7 +100,7 @@ function AdminDashboard() {
                         onClick={() =>
                            navigate('/admindashboard/selectedusers')
                         }
-                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none hover:bg-blue-400 bg-blue-900 text-white'
+                        class=' py-2 px-4 inline-flex items-center gap-x-1 rounded-b-md text-sm font-monospace focus:z-10 border border-black hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none bg-purple-500 hover:bg-purple-700  focus:bg-purple-900 text-white'
                      >
                         Selected Users
                      </button>
@@ -138,66 +137,66 @@ function AdminDashboard() {
 
                   {/* Interviews  */}
                   <div className='bg-white/30 w-1/5 m-2 p-2 rounded-lg items-center'>
-                     <p className='mb-0 p-2 text-center text-md font-semibold font-monospace underline'>
-                        Scheduled Interviews:
+                     <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
+                        Interviews:
                      </p>
-                     <ul class='marker:text-blue-600 list-disc ps-2 space-y-2 text-md text-purple-800 font-sans font-monospace my-2 mx-auto'>
-                        <li className='flex justify-between items-center border-2 border-black rounded-md py-1 px-2'>
+                     <ul class='marker:text-blue-600 list-disc ps-1 space-y-3 text-md text-purple-800 font-sans font-monospace my-2 mx-auto'>
+                        <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 1
                            <button
                               onClick={handleStartInterview}
-                              className='bg-green-400 text-black rounded-md text-sm p-1 w-16 disabled:bg-red-400 disabled:text-opacity-60 font-medium disabled:font-normal'
+                              className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
                               Start
                            </button>
                         </li>
-                        <li className='flex justify-between items-center border-2 border-black rounded-md py-1 px-2'>
+                        <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 2{' '}
                            <button
                               onClick={handleStartInterview}
                               disabled
-                              className='bg-green-400 text-black rounded-md text-sm p-1 w-16 disabled:bg-red-400 disabled:text-opacity-60 font-medium disabled:font-normal'
+                              className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
                               Start
                            </button>
                         </li>
-                        <li className='flex justify-between items-center border-2 border-black rounded-md py-1 px-2'>
+                        <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            {' '}
                            Interview 3{' '}
                            <button
                               onClick={handleStartInterview}
                               disabled
-                              className='bg-green-400 text-black rounded-md text-sm p-1 w-16 disabled:bg-red-400 disabled:text-opacity-60 font-medium disabled:font-normal'
+                              className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
                               Start
                            </button>
                         </li>
-                        <li className='flex justify-between items-center border-2 border-black rounded-md py-1 px-2'>
+                        <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 4{' '}
                            <button
                               onClick={handleStartInterview}
                               disabled
-                              className='bg-green-400 text-black rounded-md text-sm p-1 w-16 disabled:bg-red-400 disabled:text-opacity-60 font-medium disabled:font-normal'
+                              className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
                               Start
                            </button>
                         </li>
-                        <li className='flex justify-between items-center border-2 border-black rounded-md py-1 px-2'>
+                        <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 5{' '}
                            <button
                               onClick={handleStartInterview}
                               disabled
-                              className='bg-green-400 text-black rounded-md text-sm p-1 w-16 disabled:bg-red-400 disabled:text-opacity-60 font-medium disabled:font-normal'
+                              className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
                               Start
                            </button>
                         </li>
-                        <li className='flex justify-between items-center border-2 border-black rounded-md py-1 px-2'>
+                        <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 6{' '}
                            <button
                               onClick={handleStartInterview}
                               disabled
-                              className='bg-green-400 text-black rounded-md text-sm  p-1 w-16 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
+                              className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
                               Start
                            </button>
