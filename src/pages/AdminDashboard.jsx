@@ -32,7 +32,7 @@ function AdminDashboard() {
    ]
 
    const handleStartInterview = () => {
-      console.log('Interview Started')
+      alert(`Starting Interview: ${selectedInterview}`)
       navigate('/admin/:id')
    }
 
@@ -140,11 +140,14 @@ function AdminDashboard() {
                      <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
                         Interviews:
                      </p>
-                     <ul class='marker:text-blue-600 list-disc ps-1 space-y-3 text-md text-purple-800 font-sans font-monospace my-2 mx-auto'>
+                     <ul class='max-h-[300px] overflow-y-auto pr-3 marker:text-blue-600 list-disc ps-1 space-y-3 text-md text-purple-800 font-sans font-monospace my-2 mx-auto'>
                         <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 1
                            <button
-                              onClick={handleStartInterview}
+                              onClick={() => {
+                                 // setSelectedInterview('Interview 1')
+                                 handleStartInterview()
+                              }}
                               className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
                               Start
@@ -153,7 +156,10 @@ function AdminDashboard() {
                         <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 2{' '}
                            <button
-                              onClick={handleStartInterview}
+                              onClick={() => {
+                                 // setSelectedInterview('Interview 2')
+                                 handleStartInterview()
+                              }}
                               disabled
                               className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
@@ -164,7 +170,10 @@ function AdminDashboard() {
                            {' '}
                            Interview 3{' '}
                            <button
-                              onClick={handleStartInterview}
+                              onClick={() => {
+                                 // setSelectedInterview('Interview 3')
+                                 handleStartInterview()
+                              }}
                               disabled
                               className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
@@ -174,7 +183,10 @@ function AdminDashboard() {
                         <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 4{' '}
                            <button
-                              onClick={handleStartInterview}
+                              onClick={() => {
+                                 // setSelectedInterview('Interview 4')
+                                 handleStartInterview()
+                              }}
                               disabled
                               className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
@@ -184,7 +196,10 @@ function AdminDashboard() {
                         <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 5{' '}
                            <button
-                              onClick={handleStartInterview}
+                              onClick={() => {
+                                 // setSelectedInterview('Interview 5')
+                                 handleStartInterview()
+                              }}
                               disabled
                               className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >
@@ -194,7 +209,10 @@ function AdminDashboard() {
                         <li className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
                            Interview 6{' '}
                            <button
-                              onClick={handleStartInterview}
+                              onClick={() => {
+                                 // setSelectedInterview('Interview 6')
+                                 handleStartInterview()
+                              }}
                               disabled
                               className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
                            >

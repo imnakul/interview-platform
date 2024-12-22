@@ -8,7 +8,6 @@ function AdminScreen() {
    return (
       <>
          <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">
-            <Navbar isLoggedIn={isLoggedIn} />
             <div className='flex justify-start min-w-screen min-h-full border-2 m-1'>
                <div className='flex flex-wrap gap-4'>
                   <Card className='mt-6 ml-10 w-64 h-48 bg-yellow-200 border-2 border-cyan-300'>
@@ -30,7 +29,6 @@ function AdminScreen() {
                   <h1 className='text-center mt-20'>Code Area</h1>
                </Card>
             </div>
-            <Footer />
          </div>
       </>
    )
