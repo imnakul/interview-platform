@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMatch, useNavigate } from 'react-router-dom'
 import {
    Button,
@@ -21,12 +21,201 @@ function UserDashboard() {
       'Interview 5',
       'Interview 6',
    ]
-
    const [isLoggedIn, setIsLoggedIn] = useState(true)
    const [selectedInterview, setSelectedInterview] = useState('Interview 2')
-   const navigate = useNavigate()
 
    const [code, setCode] = useState('')
+   const [allChecksCompleted, setAllChecksCompleted] = useState(false) // to check if all checks are completed
+   const [cameraPermission, setCameraPermission] = useState(false)
+   const [microphonePermission, setMicrophonePermission] = useState(false)
+   const [fullscreenEnabled, setFullscreenEnabled] = useState(false)
+   const [screenCapturePermission, setScreenCapturePermission] = useState(false)
+   let screenCaptureStream = null
+
+   // Check permissions from localStorage on page load
+   useEffect(() => {
+      setCameraPermission(localStorage.getItem('scameraPermission') === 'true')
+      setMicrophonePermission(
+         localStorage.getItem('smicrophonePermission') === 'true'
+      )
+      setFullscreenEnabled(
+         localStorage.getItem('sfullscreenPermission') === 'true'
+      )
+      setScreenCapturePermission(
+         localStorage.getItem('sscreenCapturePermission') === 'true'
+      )
+   }, [])
+
+   // Update all checks status
+   useEffect(() => {
+      const allChecks =
+         cameraPermission &&
+         microphonePermission &&
+         fullscreenEnabled &&
+         screenCapturePermission
+      setAllChecksCompleted(allChecks)
+   }, [
+      cameraPermission,
+      microphonePermission,
+      fullscreenEnabled,
+      screenCapturePermission,
+   ])
+
+   // Detect fullscreen exit and uncheck fullscreen permission
+   useEffect(() => {
+      const handleFullscreenChange = () => {
+         if (!document.fullscreenElement) {
+            alert(
+               'FullScreen Exit! Your activity is being monitored, and the admin will be informed.'
+            )
+            setFullscreenEnabled(false)
+            localStorage.setItem('sfullscreenPermission', 'false')
+         }
+      }
+      document.addEventListener('fullscreenchange', handleFullscreenChange)
+
+      return () => {
+         document.removeEventListener(
+            'fullscreenchange',
+            handleFullscreenChange
+         )
+      }
+   }, [])
+
+   // Continuously monitor if camera or microphone gets disabled
+   useEffect(() => {
+      let cameraStream = null
+      let micStream = null
+
+      const checkCameraAndMic = async () => {
+         try {
+            // Check camera
+            cameraStream = await navigator.mediaDevices.getUserMedia({
+               video: true,
+            })
+            if (cameraStream.active) {
+               setCameraPermission(true)
+               localStorage.setItem('scameraPermission', 'true')
+            } else {
+               throw new Error('Camera inactive')
+            }
+         } catch {
+            if (cameraPermission) {
+               //here cameraPermission is a state variable not storage variable
+               alert('Camera turned off! Admin will be informed.')
+               setCameraPermission(false)
+               localStorage.setItem('scameraPermission', 'false')
+            }
+         }
+
+         try {
+            // Check microphone
+            micStream = await navigator.mediaDevices.getUserMedia({
+               audio: true,
+            })
+            if (micStream.active) {
+               setMicPermission(true)
+               localStorage.setItem('smicrophonePermission', 'true')
+            } else {
+               throw new Error('Microphone inactive')
+            }
+         } catch {
+            if (microphonePermission) {
+               alert('Microphone turned off! Admin will be informed.')
+               setMicrophonePermission(false)
+               localStorage.setItem('smicrophonePermission', 'false')
+            }
+         }
+      }
+
+      const interval = setInterval(checkCameraAndMic, 3000) // Check every 3 seconds
+
+      return () => {
+         if (cameraStream)
+            cameraStream.getTracks().forEach((track) => track.stop())
+         if (micStream) micStream.getTracks().forEach((track) => track.stop())
+         clearInterval(interval)
+      }
+   }, [cameraPermission, microphonePermission])
+
+   // Continuously monitor if screen capture stops
+   useEffect(() => {
+      const checkScreenCapture = () => {
+         if (screenCaptureStream && !screenCaptureStream.active) {
+            alert('Screen capture stopped! Admin will be informed.')
+            setScreenCapturePermission(false)
+            localStorage.setItem('sscreenCapturePermission', 'false')
+         }
+      }
+
+      const interval = setInterval(checkScreenCapture, 3000) // Check every 3 seconds
+
+      return () => {
+         if (screenCaptureStream)
+            screenCaptureStream.getTracks().forEach((track) => track.stop())
+         clearInterval(interval)
+      }
+   }, [screenCapturePermission])
+
+   // Enable Camera Access
+   const requestCameraAccess = async () => {
+      try {
+         const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+         })
+         if (stream) {
+            setCameraPermission(true)
+            localStorage.setItem('scameraPermission', 'true')
+            checkAllPermissions()
+         }
+      } catch (error) {
+         alert('Camera permission denied. Please allow access to continue.')
+      }
+   }
+
+   //Enable Microphone Access
+   const requestMicrophoneAccess = async () => {
+      try {
+         const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+         })
+         if (stream) {
+            setMicrophonePermission(true)
+            localStorage.setItem('smicrophonePermission', 'true')
+            checkAllPermissions()
+         }
+      } catch (error) {
+         alert('Microphone permission denied. Please allow access to continue.')
+      }
+   }
+
+   // Enable Fullscreen Mode
+   const handleFullscreenPermission = () => {
+      const elem = document.documentElement
+      if (elem.requestFullscreen) {
+         elem.requestFullscreen().then(() => {
+            setFullscreenEnabled(true)
+            localStorage.setItem('sfullscreenPermission', 'true')
+         })
+      } else {
+         alert('Fullscreen mode is not supported in your browser!')
+      }
+   }
+
+   // Enable Screen Capture
+   const handleScreenCapturePermission = async () => {
+      try {
+         screenCaptureStream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+         })
+         if (screenCaptureStream) {
+            setScreenCapturePermission(true)
+            localStorage.setItem('sscreenCapturePermission', 'true')
+         }
+      } catch (err) {
+         alert('Screen capture permission denied!')
+      }
+   }
 
    // Function to handle input
    const handleInputChange = (e) => {
@@ -42,7 +231,16 @@ function UserDashboard() {
       navigate('/user/:id')
    }
 
-   const [allcheckscompleted, setAllChecksCompleted] = useState(false) // to check if all checks are completed
+   const checkAllPermissions = () => {
+      if (
+         cameraPermission &&
+         microphonePermission &&
+         fullscreenEnabled &&
+         screenCapturePermission
+      ) {
+         setAllChecksCompleted(true)
+      }
+   }
 
    return (
       <>
@@ -63,8 +261,8 @@ function UserDashboard() {
                <div className='flex justify-between bg-transparent min-h-[59vh]'>
                   {/* Sidebar */}
                   <div
-                     class={` flex flex-col  rounded-lg shadow-sm p-4 m-2 text-center justify-evenly bg-white/30 ${
-                        allcheckscompleted ? 'w-1/3' : 'w-1/2'
+                     className={` flex flex-col  rounded-lg shadow-sm p-4 m-2 text-center justify-evenly bg-white/30 transition-all duration-500 ease-in-out ${
+                        allChecksCompleted ? 'w-1/3' : 'w-1/2'
                      }`}
                   >
                      <div className='bg-white/30 m-1 p-2 rounded-lg items-center'>
@@ -126,28 +324,123 @@ function UserDashboard() {
                   {/* content show  */}
                   <div
                      className={`bg-white/30 w-1/3 m-4 rounded-lg items-center ${
-                        allcheckscompleted ? 'w-1/3' : 'w-1/2'
+                        allChecksCompleted ? 'w-1/3' : 'w-1/2'
                      }`}
                   >
                      <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
                         Requirements for Interview:
                      </p>
+                     <div className='p-4 space-y-4'>
+                        {/* Camera Permission */}
+                        <div className='flex items-center'>
+                           <span
+                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
+                                 cameraPermission
+                                    ? 'bg-green-500'
+                                    : 'bg-red-400'
+                              }`}
+                           >
+                              {cameraPermission && '✓'}
+                              {!cameraPermission && '✗'}
+                           </span>
+                           <button
+                              onClick={requestCameraAccess}
+                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
+                           >
+                              Enable Camera
+                           </button>
+                        </div>
+
+                        {/* Microphone Permission */}
+                        <div className='flex items-center'>
+                           <span
+                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
+                                 microphonePermission
+                                    ? 'bg-green-500'
+                                    : 'bg-red-400'
+                              }`}
+                           >
+                              {microphonePermission && '✓'}
+                              {!microphonePermission && '✗'}
+                           </span>
+                           <button
+                              onClick={requestMicrophoneAccess}
+                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
+                           >
+                              Enable Microphone
+                           </button>
+                        </div>
+
+                        {/* Screen Capture Permission */}
+                        <div className='flex items-center'>
+                           <span
+                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
+                                 screenCapturePermission
+                                    ? 'bg-green-500'
+                                    : 'bg-red-400'
+                              }`}
+                           >
+                              {screenCapturePermission && '✓'}
+                              {!screenCapturePermission && '✗'}
+                           </span>
+                           <button
+                              onClick={handleScreenCapturePermission}
+                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
+                           >
+                              Enable Screen Capture
+                           </button>
+                        </div>
+
+                        {/* Fullscreen Permission */}
+                        <div className='flex items-center'>
+                           <span
+                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
+                                 fullscreenEnabled
+                                    ? 'bg-green-500'
+                                    : 'bg-red-400'
+                              }`}
+                           >
+                              {fullscreenEnabled && '✓'}
+                              {!fullscreenEnabled && '✗'}
+                           </span>
+                           <button
+                              onClick={handleFullscreenPermission}
+                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
+                           >
+                              Enable Fullscreen
+                           </button>
+                        </div>
+                     </div>
+
+                     {/* Join Button */}
+                     <div className='flex justify-center'>
+                        <button
+                           disabled={!allChecksCompleted}
+                           className={`mt-4 px-6 py-3 font-semibold text-white rounded ${
+                              allChecksCompleted
+                                 ? 'bg-green-500'
+                                 : 'bg-gray-300'
+                           }`}
+                        >
+                           Join
+                        </button>
+                     </div>
                   </div>
 
                   {/* Interviews  */}
-                  {allcheckscompleted && (
+                  {allChecksCompleted && (
                      <div className='bg-white/60 w-1/3 m-2 p-1 items-center flex flex-col rounded-lg'>
                         <img src='/atb.png' alt='' className='w-36 h-36' />
                         <img src='/dyb.png' alt='' className='w-full h-full' />
                         <button
                            disabled
                            type='button'
-                           class='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                           className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
                         >
                            <svg
                               aria-hidden='true'
                               role='status'
-                              class='inline w-4 h-4 me-3 text-white animate-spin'
+                              className='inline w-4 h-4 me-3 text-white animate-spin'
                               viewBox='0 0 100 101'
                               fill='none'
                               xmlns='http://www.w3.org/2000/svg'
