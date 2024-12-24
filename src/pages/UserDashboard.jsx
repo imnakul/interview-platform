@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useMatch, useNavigate } from 'react-router-dom'
 import {
    Button,
@@ -30,6 +30,9 @@ function UserDashboard() {
    const [microphonePermission, setMicrophonePermission] = useState(false)
    const [fullscreenEnabled, setFullscreenEnabled] = useState(false)
    const [screenCapturePermission, setScreenCapturePermission] = useState(false)
+   const videoRef = useRef(null) // Ref for the video element
+   const [isJoining, setIsJoining] = useState(false) // To show spinner when joining interview
+   let cameraStream = null
    let screenCaptureStream = null
 
    // Check permissions from localStorage on page load
@@ -110,12 +113,32 @@ function UserDashboard() {
 
          try {
             // Check microphone
-            micStream = await navigator.mediaDevices.getUserMedia({
-               audio: true,
-            })
-            if (micStream.active) {
-               setMicPermission(true)
-               localStorage.setItem('smicrophonePermission', 'true')
+            //    micStream = await navigator.mediaDevices.getUserMedia({
+            //       audio: true,
+            //    })
+            //    if (micStream.active) {
+            //       setMicPermission(true)
+            //       localStorage.setItem('smicrophonePermission', 'true')
+            //    } else {
+            //       throw new Error('Microphone inactive')
+            //    }
+            // }
+            if (!micStream) {
+               micStream = await navigator.mediaDevices.getUserMedia({
+                  audio: true,
+               })
+            }
+
+            if (
+               micStream &&
+               micStream
+                  .getTracks()
+                  .some((track) => track.readyState === 'live')
+            ) {
+               if (!microphonePermission) {
+                  setMicrophonePermission(true)
+                  localStorage.setItem('smicrophonePermission', 'true')
+               }
             } else {
                throw new Error('Microphone inactive')
             }
@@ -138,28 +161,49 @@ function UserDashboard() {
       }
    }, [cameraPermission, microphonePermission])
 
-   // Continuously monitor if screen capture stops
+   // Continuously monitor if screen capture gets disabled
    useEffect(() => {
       const checkScreenCapture = () => {
-         if (screenCaptureStream && !screenCaptureStream.active) {
-            alert('Screen capture stopped! Admin will be informed.')
-            setScreenCapturePermission(false)
-            localStorage.setItem('sscreenCapturePermission', 'false')
+         if (screenCaptureStream) {
+            const isActive = screenCaptureStream
+               .getVideoTracks()
+               .some((track) => track.readyState === 'live')
+            if (!isActive) {
+               alert('Screen capture stopped! Admin will be informed.')
+               setScreenCapturePermission(false)
+               localStorage.setItem('sscreenCapturePermission', 'false')
+               screenCaptureStream = null // Clear the stream reference
+            }
          }
       }
 
       const interval = setInterval(checkScreenCapture, 3000) // Check every 3 seconds
 
       return () => {
-         if (screenCaptureStream)
+         //    if (screenCaptureStream)
+         //       screenCaptureStream.getTracks().forEach((track) => track.stop())
+         //    clearInterval(interval)
+         // }
+         // Clean up the stream and interval on component unmount
+         if (screenCaptureStream) {
             screenCaptureStream.getTracks().forEach((track) => track.stop())
+         }
+         if (cameraStream) {
+            cameraStream.getTracks().forEach((track) => track.stop())
+         }
          clearInterval(interval)
       }
-   }, [screenCapturePermission])
+   }, [screenCaptureStream, screenCapturePermission])
 
    // Enable Camera Access
    const requestCameraAccess = async () => {
       try {
+         // Stop any existing camera stream if already active
+         if (cameraStream) {
+            cameraStream.getTracks().forEach((track) => track.stop())
+            cameraStream = null
+         }
+
          const stream = await navigator.mediaDevices.getUserMedia({
             video: true,
          })
@@ -167,9 +211,17 @@ function UserDashboard() {
             setCameraPermission(true)
             localStorage.setItem('scameraPermission', 'true')
             checkAllPermissions()
+            cameraStream = stream // Update the camera stream reference
+         }
+         // Attach the stream to the video element
+         if (videoRef.current) {
+            videoRef.current.srcObject = cameraStream
+            videoRef.current.play()
          }
       } catch (error) {
          alert('Camera permission denied. Please allow access to continue.')
+         setCameraPermission(false)
+         localStorage.setItem('scameraPermission', 'false')
       }
    }
 
@@ -211,9 +263,19 @@ function UserDashboard() {
          if (screenCaptureStream) {
             setScreenCapturePermission(true)
             localStorage.setItem('sscreenCapturePermission', 'true')
+
+            // Handle manual stop of the screen share by the user
+            screenCaptureStream.getVideoTracks()[0].onended = () => {
+               alert('Screen capture stopped! Admin will be informed.')
+               setScreenCapturePermission(false)
+               localStorage.setItem('sscreenCapturePermission', 'false')
+               screenCaptureStream = null // Clear the stream reference
+            }
          }
       } catch (err) {
          alert('Screen capture permission denied!')
+         setScreenCapturePermission(false)
+         localStorage.setItem('sscreenCapturePermission', 'false')
       }
    }
 
@@ -227,8 +289,11 @@ function UserDashboard() {
    }
 
    const handleStartInterview = () => {
-      console.log('Interview Started')
-      navigate('/user/:id')
+      // console.log('Interview Started')
+      setIsJoining(true) // Show spinner
+      setTimeout(() => {
+         navigate('/user/:id') // Replace with the actual route
+      }, 1000) // 3 seconds delay
    }
 
    const checkAllPermissions = () => {
@@ -249,7 +314,7 @@ function UserDashboard() {
             {/* Sidebar */}
 
             {/* Main Content */}
-            <div className='px-4 py-3 bg-white/40 my-10 mx-auto max-w-6xl min-h-[74.5vh]'>
+            <div className='px-4 py-3 mt-4 mb-10 mx-auto max-w-7xl min-h-[74.5vh]'>
                <header className='mb-3'>
                   <Typography
                      variant='h1'
@@ -260,178 +325,204 @@ function UserDashboard() {
                </header>
                <div className='flex justify-between bg-transparent min-h-[59vh]'>
                   {/* Sidebar */}
-                  <div
-                     className={` flex flex-col  rounded-lg shadow-sm p-4 m-2 text-center justify-evenly bg-white/30 transition-all duration-500 ease-in-out ${
-                        allChecksCompleted ? 'w-1/3' : 'w-1/2'
-                     }`}
-                  >
-                     <div className='bg-white/30 m-1 p-2 rounded-lg items-center'>
-                        <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
-                           Interview Avaialble to Join:
-                        </p>
-                        <div className='flex justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
-                           Interview 2
-                           <button
-                              onClick={handleStartInterview}
-                              disabled={selectedInterview === null}
-                              className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-xs py-1 px-1 w-12 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
-                           >
-                              Join
-                           </button>
-                        </div>
-                     </div>
-
-                     {/* 2nd part */}
-                     <div className=' bg-white/30 m-1 p-2 rounded-lg items-center'>
-                        <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
-                           Join Interview with Code:
-                        </p>
-                        <div className='flex flex-col justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
-                           Enter Code Below to Join:
-                           <div className='flex gap-4 my-2 items-center justify-evenly'>
-                              <input
-                                 id='interview-code'
-                                 type='text'
-                                 inputMode='numeric'
-                                 maxLength='6'
-                                 value={code}
-                                 onChange={handleInputChange}
-                                 placeholder='XXXXXX'
-                                 className='w-32 p-2 text-center border border-gray-400 rounded-md focus:outline-none focus:ring focus:ring-blue-300 placeholder-dashed'
-                              />
-                              <button
-                                 onClick={() => {
-                                    if (code === '123456') {
+                  {!isJoining && (
+                     <>
+                        <div
+                           className={` flex flex-col  rounded-lg shadow-sm p-4 m-2 text-center justify-evenly bg-white/30 transition-all duration-500 ease-in-out w-1/2
+                              
+                           }`}
+                        >
+                           <div className='bg-white/30 m-1 p-2 rounded-lg items-center'>
+                              <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
+                                 Interview Avaialble to Join:
+                              </p>
+                              <div className='flex justify-between items-center border-2 border-black rounded-b-md py-1 pl-3 pr-2'>
+                                 Interview 2
+                                 <button
+                                    onClick={(e) => {
+                                       e.preventDefault()
                                        alert(
-                                          `Joining with code: ${code}, Complete System Requirements first!`
+                                          `Before Joining Interview, Complete System Requirements first!`
                                        )
-                                       setAllChecksCompleted(true)
-                                       // handleStartInterview()
-                                    } else {
-                                       alert('Invalid Code')
-                                    }
-                                 }}
-                                 disabled={selectedInterview === null}
-                                 className='bg-green-400 text-black rounded-md border border-purple-500 shadow-sm text-lg py-1 px-4 w-20 disabled:bg-red-400 disabled:text-opacity-60 font-medium disabled:font-normal'
+                                    }}
+                                    disabled={selectedInterview === null}
+                                    className='bg-green-400 text-black rounded-md border border-black shadow-sm text-md py-1 px-1 w-20 disabled:bg-red-400 disabled:text-opacity-60  font-medium disabled:font-normal'
+                                 >
+                                    Proceed
+                                 </button>
+                              </div>
+                           </div>
+
+                           {/* 2nd part */}
+                           <div className=' bg-white/30 m-1 p-2 rounded-lg items-center'>
+                              <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
+                                 Join Interview with Code:
+                              </p>
+                              <div className='flex flex-col justify-between items-center border-2 border-black rounded-b-md py-1 px-2'>
+                                 Enter Code Below to Join:
+                                 <div className='flex gap-4 my-2 items-center justify-evenly'>
+                                    <input
+                                       id='interview-code'
+                                       type='text'
+                                       inputMode='numeric'
+                                       maxLength='6'
+                                       value={code}
+                                       onChange={handleInputChange}
+                                       placeholder='XXXXXX'
+                                       className='w-32 p-2 text-center border border-gray-400 rounded-md focus:outline-none focus:ring-1 focus:ring-black placeholder-dashed'
+                                    />
+                                    <button
+                                       onClick={(e) => {
+                                          e.preventDefault()
+                                          if (code === '123456') {
+                                             alert(
+                                                `To Join Interview with code: ${code}, Complete System Requirements first!`
+                                             )
+
+                                             // handleStartInterview()
+                                          } else {
+                                             alert('Invalid Code')
+                                          }
+                                       }}
+                                       disabled={selectedInterview === null}
+                                       className='bg-green-400 text-black rounded-md border border-black shadow-sm text-md py-1 px-1 w-20 disabled:bg-red-400 disabled:text-opacity-60 font-medium disabled:font-normal'
+                                    >
+                                       Proceed
+                                    </button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </>
+                  )}
+
+                  {/* content show  */}
+
+                  <div
+                     className={`bg-white/30 m-2 p-2 min-h-3/4 rounded-lg items-center w-1/2 transition-all duration-500 ease-in-out`}
+                  >
+                     <p className='mb-0 mt-4 p-2 text-center text-xl font-semibold font-monospace'>
+                        System Requirements:
+                     </p>
+                     <div className='p-4 flex justify-start gap-2 '>
+                        <div className='p-1 w-1/2  items-center '>
+                           <ul class='space-y-4 font-medium text-gray-900 bg-white/30 border border-black rounded-lg rounded-t-lg py-2'>
+                              <li class='w-full border-b border-gray-200 rounded-t-lg'>
+                                 <div class='flex items-center ps-3'>
+                                    <input
+                                       id='vue-checkbox'
+                                       type='checkbox'
+                                       value=''
+                                       class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  '
+                                       onClick={requestCameraAccess}
+                                       checked={cameraPermission} // Bind the checkbox state to cameraPermission
+                                    />
+                                    <label
+                                       for='vue-checkbox'
+                                       class='w-full py-3 ms-2 text-md font-medium text-gray-900 '
+                                    >
+                                       Camera Permission
+                                    </label>
+                                 </div>
+                              </li>
+                              <li class='w-full border-b border-gray-200 rounded-t-lg '>
+                                 <div class='flex items-center ps-3'>
+                                    <input
+                                       id='react-checkbox'
+                                       type='checkbox'
+                                       value=''
+                                       class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 '
+                                       onClick={requestMicrophoneAccess}
+                                       checked={microphonePermission} // Bind the checkbox state to microphonePermission
+                                       readOnly // Prevent direct toggling since state determines checked status
+                                    />
+                                    <label
+                                       for='react-checkbox'
+                                       class='w-full py-3 ms-2 text-md font-medium text-gray-900 '
+                                    >
+                                       Microphone Permission
+                                    </label>
+                                 </div>
+                              </li>
+                              <li class='w-full border-b border-gray-200 rounded-t-lg '>
+                                 <div class='flex items-center ps-3'>
+                                    <input
+                                       id='angular-checkbox'
+                                       type='checkbox'
+                                       value=''
+                                       class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 '
+                                       onClick={handleScreenCapturePermission}
+                                       checked={screenCapturePermission} // Bind the checkbox state to screenCapturePermission
+                                    />
+                                    <label
+                                       for='angular-checkbox'
+                                       class='w-full py-3 ms-2 text-md font-medium text-gray-900 '
+                                    >
+                                       Screen Capture Permission
+                                    </label>
+                                 </div>
+                              </li>
+                              <li class='w-full border-b border-gray-200 rounded-t-lg '>
+                                 <div class='flex items-center ps-3'>
+                                    <input
+                                       id='laravel-checkbox'
+                                       type='checkbox'
+                                       value=''
+                                       class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 '
+                                       onClick={handleFullscreenPermission}
+                                       checked={fullscreenEnabled} // Bind the checkbox state to fullscreenEnabled
+                                    />
+                                    <label
+                                       for='laravel-checkbox'
+                                       class='w-full py-3 ms-2 text-md font-medium text-gray-900'
+                                    >
+                                       Full Screen
+                                    </label>
+                                 </div>
+                              </li>
+                           </ul>
+
+                           {/* Join Button */}
+                           <div className='flex justify-center'>
+                              <button
+                                 disabled={!allChecksCompleted}
+                                 className={`mt-4 p-1 text-black rounded-md border border-black shadow-sm text-md w-16 ${
+                                    allChecksCompleted
+                                       ? 'bg-green-400 opacity-100'
+                                       : 'bg-red-400 opacity-50'
+                                 }`}
+                                 onClick={handleStartInterview}
                               >
                                  Join
                               </button>
                            </div>
                         </div>
-                     </div>
-                  </div>
 
-                  {/* content show  */}
-                  <div
-                     className={`bg-white/30 w-1/3 m-4 rounded-lg items-center ${
-                        allChecksCompleted ? 'w-1/3' : 'w-1/2'
-                     }`}
-                  >
-                     <p className='mb-0 p-2 text-center text-xl font-semibold font-monospace'>
-                        Requirements for Interview:
-                     </p>
-                     <div className='p-4 space-y-4'>
-                        {/* Camera Permission */}
-                        <div className='flex items-center'>
-                           <span
-                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
-                                 cameraPermission
-                                    ? 'bg-green-500'
-                                    : 'bg-red-400'
-                              }`}
-                           >
-                              {cameraPermission && '✓'}
-                              {!cameraPermission && '✗'}
-                           </span>
-                           <button
-                              onClick={requestCameraAccess}
-                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
-                           >
-                              Enable Camera
-                           </button>
+                        <div className='flex flex-col gap-2 text-md font-semibold font-monospace items-center justify-start p-4 min-w-1/3 '>
+                           <h3>Camera Preview:</h3>
+                           {cameraPermission && (
+                              <div>
+                                 <video
+                                    ref={videoRef}
+                                    style={{
+                                       width: '260px',
+                                       height: '188px',
+                                       border: '2px solid #fff',
+                                       borderRadius: '8px',
+                                       rounded: '8px',
+                                    }}
+                                 ></video>
+                              </div>
+                           )}
                         </div>
-
-                        {/* Microphone Permission */}
-                        <div className='flex items-center'>
-                           <span
-                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
-                                 microphonePermission
-                                    ? 'bg-green-500'
-                                    : 'bg-red-400'
-                              }`}
-                           >
-                              {microphonePermission && '✓'}
-                              {!microphonePermission && '✗'}
-                           </span>
-                           <button
-                              onClick={requestMicrophoneAccess}
-                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
-                           >
-                              Enable Microphone
-                           </button>
-                        </div>
-
-                        {/* Screen Capture Permission */}
-                        <div className='flex items-center'>
-                           <span
-                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
-                                 screenCapturePermission
-                                    ? 'bg-green-500'
-                                    : 'bg-red-400'
-                              }`}
-                           >
-                              {screenCapturePermission && '✓'}
-                              {!screenCapturePermission && '✗'}
-                           </span>
-                           <button
-                              onClick={handleScreenCapturePermission}
-                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
-                           >
-                              Enable Screen Capture
-                           </button>
-                        </div>
-
-                        {/* Fullscreen Permission */}
-                        <div className='flex items-center'>
-                           <span
-                              className={`w-6 h-6 flex items-center justify-center rounded-full ${
-                                 fullscreenEnabled
-                                    ? 'bg-green-500'
-                                    : 'bg-red-400'
-                              }`}
-                           >
-                              {fullscreenEnabled && '✓'}
-                              {!fullscreenEnabled && '✗'}
-                           </span>
-                           <button
-                              onClick={handleFullscreenPermission}
-                              className='ml-4 bg-blue-500 text-white px-4 py-2 rounded'
-                           >
-                              Enable Fullscreen
-                           </button>
-                        </div>
-                     </div>
-
-                     {/* Join Button */}
-                     <div className='flex justify-center'>
-                        <button
-                           disabled={!allChecksCompleted}
-                           className={`mt-4 px-6 py-3 font-semibold text-white rounded ${
-                              allChecksCompleted
-                                 ? 'bg-green-500'
-                                 : 'bg-gray-300'
-                           }`}
-                        >
-                           Join
-                        </button>
                      </div>
                   </div>
 
                   {/* Interviews  */}
-                  {allChecksCompleted && (
-                     <div className='bg-white/60 w-1/3 m-2 p-1 items-center flex flex-col rounded-lg'>
+                  {allChecksCompleted && isJoining && (
+                     <div className='bg-white/60 w-1/2 m-1 p-1 items-center flex flex-col rounded-lg transition-all duration-500 ease-in-out'>
                         <img src='/atb.png' alt='' className='w-36 h-36' />
-                        <img src='/dyb.png' alt='' className='w-full h-full' />
+                        <img src='/dyb.png' alt='' className='w-72 h-64' />
                         <button
                            disabled
                            type='button'
