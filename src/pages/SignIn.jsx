@@ -37,15 +37,15 @@ export function SignIn({ type }) {
 
    // const [userType, setUserType] = useState('user')
 
-   // const handleSubmit = (e) => {
-   //    e.preventDefault()
-   //    setIsLoggedIn(true)
-   //    if (userType === 'Admin') {
-   //       navigate('/admindashboard')
-   //    } else {
-   //       navigate('/userdashboard')
-   //    }
-   // }
+   const handleSubmit = (e) => {
+      e.preventDefault()
+      setIsLoggedIn(true)
+      if (userType === 'Admin') {
+         navigate('/admindashboard')
+      } else {
+         navigate('/userdashboard')
+      }
+   }
 
    return (
       <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">

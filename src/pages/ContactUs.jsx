@@ -12,17 +12,21 @@ export function ContactSection() {
          <Navbar isLoggedIn={isLoggedIn} />
 
          {/* outer content box  */}
-         <div className='grid grid-cols-1 bg-white/20 rounded-lg p-2 my-7 mx-56'>
-            <div className='min-w-screen flex gap-16 justify-center '>
-               <div className='flex flex-col items-center justify-center'>
-                  <Typography
+         <div className='grid grid-cols-1 xl:max-w-4xl max-w-[36rem] bg-white/20 rounded-lg p-2 my-6 mx-auto'>
+            <div className='min-w-screen flex gap-5 p-2 '>
+               <div className='flex flex-col items-center justify-center py-2 lg:py-4 px-2'>
+                  {/* <Typography
                      variant='h1'
                      color='black'
                      className='text-3xl mb-5'
                   >
+                     
+                  </Typography> */}
+                  <h2 class='mb-3 text-4xl tracking-tight font-extrabold text-center text-gray-900 '>
                      We&apos;re Here to Help
-                  </Typography>
-                  <Typography className=' font-normal !text-lg max-w-md !text-white text-center'>
+                  </h2>
+
+                  <Typography className=' font-normal !text-lg max-w-md !text-white text-center '>
                      Whether it&apos;s a question about our services, a request
                      for technical assistance, or suggestions for improvement,
                      our team is eager to hear from you.
@@ -30,120 +34,77 @@ export function ContactSection() {
                   <img
                      src='/contact.png'
                      alt='contactImage'
-                     className='w-xl h-xl lg:w-[300px] lg:h-[300px] '
+                     className='w-xl h-xl lg:w-[350px] lg:h-[350px] '
                   />
                </div>
-               <form
-                  action='#'
-                  className='flex flex-col gap-4 lg:max-w-md bg-purple-400/20 rounded-md px-4 py-6 my-10 border-2 border-purple-300'
-               >
-                  {/* <Typography
-                  variant='small'
-                  className='text-left !font-semibold !text-black'
-               >
-                  Select Options
-               </Typography>
-               <div className='flex gap-4'>
-                  <Button variant='outlined' className='max-w-fit'>
-                     General inquiry
-                  </Button>
-                  <Button variant='outlined' className='max-w-fit'>
-                     Product Support
-                  </Button>
-               </div> */}
-                  <div className='grid grid-cols-2 gap-5'>
+
+               <div class='py-2 lg:py-4 px-5 w-3/4 bg-white/30 rounded-lg '>
+                  <h2 class='mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 '>
+                     Contact Us
+                  </h2>
+                  {/* <p class='mb-4 lg:mb-4 font-light text-center text-black  sm:text-xl'>
+                     Got a technical issue? Want to send feedback about a beta
+                     feature? Need details about our Business plan? Let us know.
+                  </p> */}
+                  <form action='#' class='space-y-8'>
                      <div>
-                        <Typography
-                           variant='small'
-                           className='mb-2 text-left font-medium !text-gray-900'
+                        <label
+                           for='email'
+                           class='block mb-2 text-sm font-medium text-gray-900 '
                         >
-                           First Name
-                        </Typography>
-                        <Input
-                           color='gray'
-                           size='md'
-                           placeholder='First Name'
-                           name='first-name'
-                           className='focus:border-gray-900 text-white'
-                           containerProps={{
-                              className: 'min-w-full',
-                           }}
-                           labelProps={{
-                              className: 'hidden',
-                           }}
+                           Your email
+                        </label>
+                        <input
+                           type='email'
+                           id='email'
+                           class='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 '
+                           placeholder='name@flowbite.com'
+                           required
                         />
                      </div>
                      <div>
-                        <Typography
-                           variant='small'
-                           className='mb-2 text-left font-medium !text-gray-900'
+                        <label
+                           for='subject'
+                           class='block mb-2 text-sm font-medium text-gray-900 '
                         >
-                           Last Name
-                        </Typography>
-                        <Input
-                           size='md'
-                           placeholder='Last Name'
-                           name='last-name'
-                           className='focus:border-gray-900'
-                           containerProps={{
-                              className: '!min-w-full',
-                           }}
-                           labelProps={{
-                              className: 'hidden',
-                           }}
+                           Subject
+                        </label>
+                        <input
+                           type='text'
+                           id='subject'
+                           class='block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 '
+                           placeholder='Let us know how we can help you'
+                           required
                         />
                      </div>
-                  </div>
-                  <div>
-                     <Typography
-                        variant='small'
-                        className='mb-2 text-left font-medium !text-gray-900'
-                     >
-                        Your Email
-                     </Typography>
-                     <Input
-                        color='gray'
-                        size='md'
-                        placeholder='name@email.com'
-                        name='email'
-                        className='focus:border-gray-900'
-                        containerProps={{
-                           className: '!min-w-full',
-                        }}
-                        labelProps={{
-                           className: 'hidden',
-                        }}
-                     />
-                  </div>
-                  <div>
-                     <Typography
-                        variant='small'
-                        className='mb-2 text-left font-medium !text-gray-900'
-                     >
-                        Your Message
-                     </Typography>
-                     <Textarea
-                        rows={6}
-                        color='gray'
-                        placeholder='Message'
-                        name='message'
-                        className='focus:border-gray-900'
-                        containerProps={{
-                           className: '!min-w-full',
-                        }}
-                        labelProps={{
-                           className: 'hidden',
-                        }}
-                     />
-                  </div>
-                  <Button className='w-full' color='gray'>
-                     Send message
-                  </Button>
-               </form>
+                     <div class='sm:col-span-2'>
+                        <label
+                           for='message'
+                           class='block mb-2 text-sm font-medium text-gray-900 '
+                        >
+                           Your message
+                        </label>
+                        <textarea
+                           id='message'
+                           rows='5'
+                           class='block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 '
+                           placeholder='Leave a comment...'
+                        ></textarea>
+                     </div>
+                     <div className='flex justify-center'>
+                        <button
+                           type='submit'
+                           class='ml-4 py-1 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 bg-purple-600'
+                        >
+                           Send message
+                        </button>
+                     </div>
+                  </form>
+               </div>
             </div>
          </div>
 
-         <Footer />
+         {/* <Footer /> */}
       </div>
    )
 }
