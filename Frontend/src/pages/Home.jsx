@@ -32,13 +32,16 @@ function Home() {
 
             <Navbar isLoggedIn={isLoggedIn} />
             <div className=' flex flex-col align-center min-w-screen min-h-max m-2'>
-               <h1 className=' text-white mt-8 mb-6 font-extrabold text-4xl text-center'>
+               <h1 className=' text-gray-800 mt-8 mb-3 font-extrabold text-3xl text-center'>
                   Welcome to,
                </h1>
-               <h1 className=' text-black mt-0 mb-2.5 font-extrabold text-6xl text-center'>
-                  The Interview Portal
+               <h1 className=' text-black mt-0 mb-3 font-extrabold text-6xl text-center'>
+                  The Interview Sphere
                </h1>
-               <div className='flex justify-center gap-6 mt-5 mb-16 '>
+               <h4 className=' text-gray-800 mt-0 mb-2.5 font-extrabold text-xl text-center'>
+                  A Platform for Collaborative Inteviews.
+               </h4>
+               <div className='flex justify-center gap-6 mt-5 mb-10'>
                   <div className=' bg-transparent border-black flex justify-center items-center gap-5 p-2 mt-1'>
                      {/* user  */}
                      <div className='flex flex-col items-center border border-black p-1 m-1 w-64 rounded-lg  bg-white/40'>

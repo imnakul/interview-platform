@@ -1,5 +1,5 @@
 import { Typography } from '@material-tailwind/react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Footer() {
    const navigate = useNavigate()
@@ -30,45 +30,29 @@ function Footer() {
             </div>
             <ul className='flex flex-wrap items-center gap-y-2 gap-x-8'>
                <li>
-                  <Typography
-                     as='a'
-                     href='#'
-                     onClick={(e) => {
-                        e.preventDefault()
-                        navigate('/about')
-                     }}
-                     color='blue-gray'
-                     className='font-normal transition-colors hover:text-blue-800 focus:text-blue-800 hover:font-bold'
-                  >
-                     About Us
-                  </Typography>
+                  <Link to='/about'>
+                     <p className='font-normal transition-colors hover:text-cyan-50 focus:text-blue-800 hover:font-bold'>
+                        About Us
+                     </p>
+                  </Link>
                </li>
 
                <li>
-                  <Typography
-                     as='a'
+                  <Link
                      target='_blank'
-                     href='https://github.com/imnakul/interview-platform'
-                     color='blue-gray'
-                     className='font-normal transition-colors hover:text-blue-800 focus:text-blue-800 hover:font-bold'
+                     to='https://github.com/imnakul/interview-platform'
                   >
-                     Contribute
-                  </Typography>
+                     <p className='font-normal transition-colors hover:text-cyan-50  focus:text-blue-800 hover:font-bold'>
+                        Contribute
+                     </p>
+                  </Link>
                </li>
                <li>
-                  <Typography
-                     as='a'
-                     target='_blank'
-                     href='#'
-                     onClick={(e) => {
-                        e.preventDefault()
-                        navigate('/contact')
-                     }}
-                     color='blue-gray'
-                     className='font-normal transition-colors hover:text-blue-800 focus:text-blue-800 hover:font-bold'
-                  >
-                     Contact Us
-                  </Typography>
+                  <Link to='/contact'>
+                     <p className='font-normal transition-colors hover:text-cyan-50 focus:text-blue-800 hover:font-bold'>
+                        Contact Us
+                     </p>
+                  </Link>
                </li>
                <li></li>
             </ul>

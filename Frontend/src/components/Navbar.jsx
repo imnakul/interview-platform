@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navbar, Collapse, Typography, Avatar } from '@material-tailwind/react'
 import AvatarWithUserDropdown from './mini-components/Avatar'
+import { Link } from 'react-router-dom'
 
 function NavList() {
    return (
@@ -45,23 +46,21 @@ export function NavbarSimple({ isLoggedIn }) {
       >
          {/* max-w-screen-xl is same as max-w-7xl  */}
          <div className='flex items-center justify-between text-blue-gray-900'>
-            <div className='flex justify-start gap-3'>
+            <div className='flex justify-start items-center gap-3'>
                {/* icon */}
                <img
                   src='/online-interview.gif'
                   alt=''
                   className='contain h-10 w-10 border-2 border-black rounded'
                />
-               {/* title  */}
-               <Typography
-                  as='a'
-                  href='/'
-                  variant='h5'
-                  className='mr-1 cursor-pointer py-1.5'
-               >
-                  Interview-Platform
-               </Typography>
+
+               <Link to='/'>
+                  <p className='cursor-pointer text-xl font-bold'>
+                     InterviewSPHERE
+                  </p>
+               </Link>
             </div>
+
             {/* Navitemslist  */}
             <div className='hidden lg:block'>{isLoggedIn && <NavList />}</div>
          </div>
