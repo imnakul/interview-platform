@@ -2,24 +2,27 @@ import { Card } from '@material-tailwind/react'
 import { useState } from 'react'
 
 function AdminScreen() {
+   const [isFullscreen, setIsFullscreen] = useState(false)
    const [both, setBoth] = useState(false)
    const [canvas, setCanvas] = useState(true)
    const [code, setCode] = useState(false)
 
-   let screen = 'both'
    return (
       <>
          <div className="min-h-screen p-4 bg-[url('/fallback.png')] bg-cover bg-center">
-            <div className='flex max-w-9xl min-h-full bg-yellow-200 p-4 gap-4'>
+            <div className='flex max-w-9xl min-h-full bg-white/40 p-4 gap-4 rounded-2xl'>
                {/* left container  */}
-               <div className='bg-blue-300 w-1/3 p-1'>
+               <div className=' w-1/3 p-1 '>
+                  <h1 className='text-center text-2xl font-bold font-serif'>
+                     Admin
+                  </h1>
                   <div className='flex flex-wrap gap-4 justify-evenly p-5'>
-                     <Card className='size-auto bg-white/70 border-2 border-t-black'>
+                     <Card className='size-auto bg-white/70 border-2 border-t-gray-700'>
                         <h1 className='text-center mt-20'>
                            Admin Video Placeholder
                         </h1>
                      </Card>
-                     <Card className='size-auto bg-white/70 border-2 border-t-black'>
+                     <Card className='size-auto bg-white/70 border-2 border-t-gray-700'>
                         <h1 className='text-center mt-20'>
                            User Video Placeholder
                         </h1>
@@ -28,14 +31,14 @@ function AdminScreen() {
                </div>
 
                {/* right container  */}
-               <div className='flex flex-col gap-4 bg-blue-500 w-2/3 p-2'>
+               <div className='flex flex-col gap-4 border-2 border-black w-2/3 p-2'>
                   <div
-                     class='inline-flex rounded-md justify-center items-center'
+                     class='inline-flex rounded-md justify-center items-center mt-2'
                      role='group'
                   >
                      <button
                         type='button'
-                        class='px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white'
+                        className='px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white'
                         onClick={() => {
                            setCanvas(true)
                            setCode(false)
@@ -46,7 +49,7 @@ function AdminScreen() {
                      </button>
                      <button
                         type='button'
-                        class='px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white'
+                        className='px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white'
                         onClick={() => {
                            setCode(true)
                            setCanvas(false)
@@ -57,7 +60,7 @@ function AdminScreen() {
                      </button>
                      <button
                         type='button'
-                        class='px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white'
+                        className='px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white'
                         onClick={() => {
                            setBoth(true)
                            setCanvas(false)
@@ -67,10 +70,10 @@ function AdminScreen() {
                         Both
                      </button>
                   </div>
-                  <div className='flex gap-4 m-1'>
+                  <div className='flex gap-1'>
                      {(canvas || both) && (
                         <div
-                           className={`h-[560px] p-1 ${
+                           className={` p-1 h-[575px] ${
                               canvas ? 'w-full' : both ? 'w-1/2' : 'w-hidden'
                            } transition-all duration-500 ease-in-out}`}
                         >
@@ -81,15 +84,27 @@ function AdminScreen() {
                      )}
                      {(code || both) && (
                         <div
-                           className={`h-[560px]  p-1 ${
+                           className={`p-1 gap-3 h-[575px] ${
+                              code ? 'flex' : 'flex flex-col'
+                           } 
+                           
+                           ${
                               code ? 'w-full' : both ? 'w-1/2' : 'w-hidden'
                            } transition-all duration-500 ease-in-out}`}
                         >
-                           <div className='h-3/4 w-full bg-white/30 p-1 border-2 border-black mb-0.5 rounded-t-lg'>
+                           <div
+                              className={` bg-white/30 p-1 border-2 border-black rounded-t-lg ${
+                                 code ? 'h-[565px] w-2/3' : 'h-3/4 w-full'
+                              } transition-all duration-500 ease-in-out`}
+                           >
                               Code Screen
                            </div>
 
-                           <div className='h-1/4 w-full bg-white/30 p-1 border-2 border-black mb-0.5 rounded-t-lg'>
+                           <div
+                              className={` bg-white/30 p-1 border-2 border-black rounded-t-lg1 ${
+                                 code ? 'h-[565px] w-1/3' : 'h-1/4 w-full'
+                              } transition-all duration-500 ease-in-out`}
+                           >
                               Output
                            </div>
                         </div>
