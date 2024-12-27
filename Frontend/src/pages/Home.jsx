@@ -13,6 +13,10 @@ function Home() {
          videoRef.current.playbackRate = 2.5
       }
    }, [])
+
+   // if (!id) {
+   //    navigate('/notfound')
+   // }
    const navigate = useNavigate()
    return (
       <>
@@ -44,18 +48,20 @@ function Home() {
                <div className='flex justify-center gap-6 mt-5 mb-10'>
                   <div className=' bg-transparent border-black flex justify-center items-center gap-5 p-2 mt-1'>
                      {/* user  */}
-                     <div className='flex flex-col items-center border border-black p-1 m-1 w-64 rounded-lg  bg-white/40'>
+                     <div className='flex flex-col items-center border border-black p-2 m-1 w-64 rounded-lg  bg-white/40'>
                         <img
                            src='/programmer.png'
                            alt=''
                            preload='auto'
                            className='h-30 w-30 mb-4'
+                           loading='eager'
+                           fallback='/fallback.png'
                         />
 
                         <button
-                           className='btn btn-ghost bg-yellow-200 border-2 border-red-500 py-1 px-2 rounded-lg mb-3 hover:opacity-80'
+                           className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2 hover:ring-2 ring-purple-400 mb-2 hover:border-none'
                            onClick={() => {
-                              navigate('/signin?type=user')
+                              navigate('/signin')
                            }}
                         >
                            Sign In
@@ -63,16 +69,18 @@ function Home() {
                      </div>
 
                      {/* new  */}
-                     <div className='flex flex-col items-center border border-black p-1 m-1 w-64 rounded-md  bg-white/40'>
+                     <div className='flex flex-col items-center border border-black p-2 m-1 w-64 rounded-md  bg-white/40'>
                         <img
                            src='/boy.png'
                            alt=''
                            preload='auto'
                            className='h-30 w-30 mb-4'
+                           loading='eager'
+                           fallback='/fallback.png'
                         />
 
                         <button
-                           className='btn bg-yellow-200 border-2 border-red-500 py-1 px-2 rounded-md mb-3 hover:opacity-80'
+                           className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-400 mb-2 hover:border-none'
                            onClick={() => {
                               navigate('/register')
                            }}

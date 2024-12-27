@@ -33,7 +33,7 @@ function AdminDashboard() {
 
    const handleStartInterview = () => {
       alert(`Starting Interview: ${selectedInterview}`)
-      navigate('/admin/:id')
+      navigate('/admininterviewscreen')
    }
 
    const usermanagement = useMatch('/admindashboard/usermanagement')

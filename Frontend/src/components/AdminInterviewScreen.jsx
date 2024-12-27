@@ -17,12 +17,12 @@ function AdminScreen() {
                      Admin
                   </h1>
                   <div className='flex flex-wrap gap-4 justify-evenly p-5'>
-                     <Card className='size-auto bg-white/70 border-2 border-t-gray-700'>
+                     <Card className='size-auto bg-white/70 border-2 border-t-gray-700 rounded-t-lg rounded-b-none'>
                         <h1 className='text-center mt-20'>
                            Admin Video Placeholder
                         </h1>
                      </Card>
-                     <Card className='size-auto bg-white/70 border-2 border-t-gray-700'>
+                     <Card className='size-auto bg-white/70 border-2 border-t-gray-700 rounded-t-lg rounded-b-none'>
                         <h1 className='text-center mt-20'>
                            User Video Placeholder
                         </h1>

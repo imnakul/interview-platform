@@ -12,16 +12,10 @@ export function ContactSection() {
          <Navbar isLoggedIn={isLoggedIn} />
 
          {/* outer content box  */}
-         <div className='grid grid-cols-1 xl:max-w-4xl max-w-[36rem] bg-white/20 rounded-lg p-2 my-6 mx-auto'>
-            <div className='min-w-screen flex gap-5 p-2 '>
-               <div className='flex flex-col items-center justify-center py-2 lg:py-4 px-2'>
-                  {/* <Typography
-                     variant='h1'
-                     color='black'
-                     className='text-3xl mb-5'
-                  >
-                     
-                  </Typography> */}
+         <div className='grid grid-cols-1 xl:max-w-5xl max-w-[36rem] bg-white/20 rounded-lg p-2 mx-auto my-6 shadow-md'>
+            <div className='min-w-screen flex gap-5 p-2'>
+               {/* left section  */}
+               <div className='flex flex-col items-center justify-center py-2 lg:py-4 px-2 '>
                   <h2 class='mb-3 text-4xl tracking-tight font-extrabold text-center text-gray-900 '>
                      We&apos;re Here to Help
                   </h2>
@@ -32,13 +26,14 @@ export function ContactSection() {
                      our team is eager to hear from you.
                   </Typography>
                   <img
-                     src='/contact.png'
+                     src='/contact-us-animate2.svg'
                      alt='contactImage'
-                     className='w-xl h-xl lg:w-[350px] lg:h-[350px] '
+                     className='min-w-2xl min-h-2xl loading="lazy" '
                   />
                </div>
 
-               <div class='py-2 lg:py-4 px-5 w-3/4 bg-white/30 rounded-lg '>
+               {/* right section  */}
+               <div class='py-2 lg:py-4 px-5 w-2/3 bg-white/20 shadow-lg rounded-lg '>
                   <h2 class='mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 '>
                      Contact Us
                   </h2>
@@ -94,7 +89,7 @@ export function ContactSection() {
                      <div className='flex justify-center'>
                         <button
                            type='submit'
-                           class='ml-4 py-1 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 bg-purple-600'
+                           class='ml-4 py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-purple-800 focus:ring-2 focus:outline-none hover:ring-2 ring-purple-400 bg-purple-600'
                         >
                            Send message
                         </button>

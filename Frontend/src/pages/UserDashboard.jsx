@@ -292,7 +292,7 @@ function UserDashboard() {
       // console.log('Interview Started')
       setIsJoining(true) // Show spinner
       setTimeout(() => {
-         navigate('/user/:id') // Replace with the actual route
+         navigate('/userinterviewscreen') // Replace with the actual route
       }, 1000) // 3 seconds delay
    }
 

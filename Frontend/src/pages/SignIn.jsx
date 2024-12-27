@@ -36,14 +36,17 @@ export function SignIn({ type }) {
    // }
 
    // const [userType, setUserType] = useState('user')
+   // if (!id) {
+   //    return navigate('/notfound')
+   // }
 
    const handleSubmit = (e) => {
       e.preventDefault()
       setIsLoggedIn(true)
       if (userType === 'Admin') {
-         navigate('/admindashboard')
+         navigate('/admindashboard/:id')
       } else {
-         navigate('/userdashboard')
+         navigate('/userdashboard/:id')
       }
    }
 
