@@ -9,8 +9,8 @@ function AdminScreen() {
 
    return (
       <>
-         <div className="min-h-screen p-4 bg-[url('/fallback.png')] bg-cover bg-center">
-            <div className='flex max-w-9xl min-h-full bg-white/40 p-2 gap-4 rounded-2xl'>
+         <div className="min-h-screen p-3 bg-[url('/fallback.png')] bg-cover bg-center">
+            <div className='flex max-w-9xl min-h-full bg-white/40 p-3.5 gap-4 rounded-2xl'>
                {/* left container  */}
                <div className=' w-1/3 p-1 '>
                   <h1 className='text-center text-2xl font-bold font-serif'>

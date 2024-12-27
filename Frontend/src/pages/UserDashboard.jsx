@@ -405,8 +405,8 @@ function UserDashboard() {
                         System Requirements:
                      </p>
                      <div className='p-4 flex justify-start gap-2 '>
-                        <div className='p-1 w-1/2  items-center '>
-                           <ul class='space-y-4 font-medium text-gray-900 bg-white/30 border border-black rounded-lg rounded-t-lg py-2'>
+                        <div className='p-1 w-1/2 items-center '>
+                           <ul class='space-y-4 font-medium text-gray-900 bg-white/30 border border-black rounded-lg rounded-t-lg py-2 mb-3'>
                               <li class='w-full border-b border-gray-200 rounded-t-lg'>
                                  <div class='flex items-center ps-3'>
                                     <input
