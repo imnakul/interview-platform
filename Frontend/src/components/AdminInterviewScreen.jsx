@@ -1,11 +1,14 @@
 import { Card } from '@material-tailwind/react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function AdminScreen() {
    const [isFullscreen, setIsFullscreen] = useState(false)
    const [both, setBoth] = useState(false)
    const [canvas, setCanvas] = useState(true)
    const [code, setCode] = useState(false)
+
+   const navigate = useNavigate()
 
    return (
       <>
@@ -28,19 +31,35 @@ function AdminScreen() {
                         </h1>
                      </Card>
                   </div>
-                  <div className='flex flex-col justify-evenly gap-4 rounded-t-md p-1 m-2'>
+                  <div className='flex flex-col justify-evenly items-center gap-4 rounded-t-md p-1 m-2'>
                      <button className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-300 '>
                         Import Notes
                      </button>
                      <button className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-300'>
                         Mark Interviewee
                      </button>
-                     <button className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-300'>
-                        To Be Replaced Later
-                     </button>
                   </div>
-                  <div className='flex flex-col gap-4 rounded-t-md p-2 mt-8  bg-white/30 h-2/5 mx-auto text-center'>
+
+                  <div className='flex flex-col gap-4 rounded-t-md p-2 my-5 bg-white/30 active:ring-2 ring-purple-200 h-2/5 mx-auto text-center'>
                      Live Chat
+                  </div>
+
+                  <div className='flex flex-col justify-evenly gap-4 rounded-t-md p-1 m-2'>
+                     <button
+                        className='px-4 py-2 bg-red-600 text-white border-2 border-red-800 rounded-md shadow-xl hover:bg-red-800 focus:ring-2  hover:ring-2 ring-red-300'
+                        onClick={() => {
+                           const reply = confirm(
+                              'Are you sure you want to end the interview ?'
+                           )
+                           if (reply) {
+                              navigate('/admininterviewend')
+                           } else {
+                              return
+                           }
+                        }}
+                     >
+                        End Interview
+                     </button>
                   </div>
                </div>
 

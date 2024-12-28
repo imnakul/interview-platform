@@ -16,6 +16,7 @@ import UserManagement from './components/admindashboardcomponents/UserManagement
 import ScheduleInterview from './components/admindashboardcomponents/ScheduleInterview.jsx'
 import SelectedUsers from './components/admindashboardcomponents/SelectedUsers.jsx'
 import NotFound from './pages/NotFound.jsx'
+import InterviewEnd from './pages/InterviewEnd.jsx'
 
 // import LightingCard from './components/CardTryOut.jsx'
 
@@ -58,6 +59,14 @@ function App() {
                <Route
                   path='/userinterviewscreen'
                   element={<UserScreen />}
+               ></Route>
+               <Route
+                  path='/admininterviewend'
+                  element={<InterviewEnd isAdmin={true} />}
+               ></Route>
+               <Route
+                  path='/userinterviewend'
+                  element={<InterviewEnd isAdmin={false} />}
                ></Route>
                <Route path='*' element={<NotFound />}></Route>
                <Route path='/notfound' element={<NotFound />}></Route>
