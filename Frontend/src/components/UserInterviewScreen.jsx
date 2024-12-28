@@ -28,6 +28,9 @@ function AdminScreen() {
                         </h1>
                      </Card>
                   </div>
+                  <div className='flex flex-col gap-4 rounded-t-md p-2 mt-48 bg-white/30 h-2/5 mx-auto text-center'>
+                     Live Chat
+                  </div>
                </div>
 
                {/* right container  */}

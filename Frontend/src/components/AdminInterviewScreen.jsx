@@ -28,6 +28,20 @@ function AdminScreen() {
                         </h1>
                      </Card>
                   </div>
+                  <div className='flex flex-col justify-evenly gap-4 rounded-t-md p-1 m-2'>
+                     <button className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-300 '>
+                        Import Notes
+                     </button>
+                     <button className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-300'>
+                        Mark Interviewee
+                     </button>
+                     <button className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-300'>
+                        To Be Replaced Later
+                     </button>
+                  </div>
+                  <div className='flex flex-col gap-4 rounded-t-md p-2 mt-8  bg-white/30 h-2/5 mx-auto text-center'>
+                     Live Chat
+                  </div>
                </div>
 
                {/* right container  */}
