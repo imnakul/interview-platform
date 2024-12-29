@@ -51,7 +51,7 @@ export function SignIn({ type }) {
    }
 
    return (
-      <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">
+      <>
          <Navbar isLoggedIn={isLoggedIn} />
          {/* static section  */}
          {/* <section className='grid text-center items-center max-w-[28rem] mx-auto mt-0 mb-6 bg-white/40 p-4 rounded-md'> */}
@@ -60,7 +60,7 @@ export function SignIn({ type }) {
 
          {/* dynamic Form section  */}
          {!matchForgotPassword && (
-            <section className='grid text-center items-center max-w-[28rem] mx-auto mt-6 mb-6 bg-white/40 p-4 rounded-md'>
+            <section className='grid text-center items-center max-w-sm xl:max-w-md mx-auto my-9 bg-white/40 p-4 rounded-md'>
                <div>
                   <Typography variant='h3' color='blue-gray' className='mb-2'>
                      Sign In
@@ -210,7 +210,7 @@ export function SignIn({ type }) {
                      <div className='!mt-1 flex justify-end'>
                         <button
                            type='submit'
-                           class='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-2 dark:focus:ring-blue-300'
+                           class='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-auto px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-2 dark:focus:ring-blue-300'
                            onClick={(e) => {
                               e.preventDefault()
                               navigate('/signin/forgotpassword')
@@ -255,7 +255,7 @@ export function SignIn({ type }) {
                {/* dynamic section form complete  */}
             </section>
          )}
-      </div>
+      </>
    )
 }
 

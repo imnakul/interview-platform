@@ -8,12 +8,11 @@ export function ContactSection() {
    const [isLoggedIn, setIsLoggedIn] = useState(true)
 
    return (
-      <div className="min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">
+      <>
          <Navbar isLoggedIn={isLoggedIn} />
-
-         {/* outer content box  */}
-         <div className='grid grid-cols-1 xl:max-w-5xl max-w-[36rem] bg-white/20 rounded-lg p-2 mx-auto my-6 shadow-md'>
-            <div className='min-w-screen flex gap-5 p-2'>
+         {/* outer content box */}
+         <div className=' xl:max-w-5xl max-w-sm bg-white/20 rounded-lg p-2 mx-auto my-6 shadow-md'>
+            <div className='min-w-screen flex flex-col xl:flex xl:flex-row gap-5 p-2'>
                {/* left section  */}
                <div className='flex flex-col items-center justify-center py-2 lg:py-4 px-2 '>
                   <h2 class='mb-3 text-4xl tracking-tight font-extrabold text-center text-gray-900 '>
@@ -26,15 +25,15 @@ export function ContactSection() {
                      our team is eager to hear from you.
                   </Typography>
                   <img
-                     src='/contact-us-animate2.svg'
+                     src='/contact-us-animate.svg'
                      alt='contactImage'
                      className='min-w-2xl min-h-2xl loading="lazy" '
                   />
                </div>
 
                {/* right section  */}
-               <div class='py-2 lg:py-4 px-5 w-2/3 bg-white/20 shadow-lg rounded-lg '>
-                  <h2 class='mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 '>
+               <div class='py-2 lg:py-4 px-5 xl:w-2/3 w-full mb-5 xl:mb-0 bg-white/20 shadow-lg rounded-lg '>
+                  <h2 class='mb-4 mt-2 text-4xl tracking-tight font-extrabold text-center text-gray-900 '>
                      Contact Us
                   </h2>
                   {/* <p class='mb-4 lg:mb-4 font-light text-center text-black  sm:text-xl'>
@@ -98,9 +97,8 @@ export function ContactSection() {
                </div>
             </div>
          </div>
-
          {/* <Footer /> */}
-      </div>
+      </>
    )
 }
 

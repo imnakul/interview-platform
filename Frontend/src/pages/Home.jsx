@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useContext } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { useState } from 'react'
+import { ThemeContext } from '../Context/ThemeContext'
 
 function Home() {
    const [isLoggedIn, setIsLoggedIn] = useState(false)
    const videoRef = useRef(null)
+   const { theme } = useContext(ThemeContext)
 
    useEffect(() => {
       if (videoRef.current) {
@@ -36,19 +38,26 @@ function Home() {
 
             <Navbar isLoggedIn={isLoggedIn} />
             <div className=' flex flex-col align-center min-w-screen min-h-max m-2'>
-               <h1 className=' text-gray-800 mt-8 mb-3 font-extrabold text-3xl text-center'>
+               <h1 className=' text-gray-800 dark:text-purple-400 mt-8 mb-3 font-extrabold text-3xl text-center'>
                   Welcome to,
                </h1>
-               <h1 className=' text-black mt-0 mb-3 font-extrabold text-6xl text-center'>
+               {/* <h1
+                  className={`${
+                     theme === 'light' ? 'text-blue-800' : 'text-pink-500'
+                  }  mt-8 mb-3 font-extrabold text-3xl text-center`}
+               >
+                  Welcome to,
+               </h1> */}
+               <h1 className=' text-black dark:text-purple-300 mt-0 mb-3 font-extrabold text-6xl text-center'>
                   The Interview Sphere
                </h1>
-               <h4 className=' text-gray-800 mt-0 mb-2.5 font-extrabold text-xl text-center'>
+               <h4 className=' text-gray-800 dark:text-purple-400 mt-0 mb-2.5 font-extrabold text-xl text-center'>
                   A Platform for Collaborative Inteviews.
                </h4>
-               <div className='flex justify-center gap-6 mt-5 mb-10'>
-                  <div className=' bg-transparent border-black flex justify-center items-center gap-5 p-2 mt-1'>
+               <div className='flex justify-center gap-6 mt-6 xl:mb-[3.15rem] mb-24'>
+                  <div className=' bg-transparent border-black flex justify-center items-center gap-3 xl:gap-5 p-2 mt-1'>
                      {/* user  */}
-                     <div className='flex flex-col items-center border border-black p-2 m-1 w-64 rounded-lg  bg-white/40'>
+                     <div className='flex flex-col items-center border border-black p-2 m-1 w-44 xl:w-64 rounded-lg  bg-white/40'>
                         <img
                            src='/programmer.png'
                            alt=''
@@ -59,7 +68,7 @@ function Home() {
                         />
 
                         <button
-                           className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2 hover:ring-2 ring-purple-400 mb-2 hover:border-none'
+                           className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2 hover:ring-2 ring-purple-400 mb-1 hover:border-none'
                            onClick={() => {
                               navigate('/signin')
                            }}
@@ -69,7 +78,7 @@ function Home() {
                      </div>
 
                      {/* new  */}
-                     <div className='flex flex-col items-center border border-black p-2 m-1 w-64 rounded-md  bg-white/40'>
+                     <div className='flex flex-col items-center border border-black p-2 m-1 w-44 xl:w-64 rounded-lg bg-white/40'>
                         <img
                            src='/boy.png'
                            alt=''
@@ -80,7 +89,7 @@ function Home() {
                         />
 
                         <button
-                           className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-400 mb-2 hover:border-none'
+                           className='px-4 py-2 bg-purple-600 text-white border-2 border-purple-800 rounded-md shadow-xl hover:bg-purple-800 focus:ring-2  hover:ring-2 ring-purple-400 mb-1 hover:border-none'
                            onClick={() => {
                               navigate('/register')
                            }}

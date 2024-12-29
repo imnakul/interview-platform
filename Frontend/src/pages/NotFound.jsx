@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const NotFound = () => {
    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[url('/fallback.png')] bg-cover bg-center">
+      <>
          <img
             src='/404-error-animate.svg'
             alt='Not Found'
@@ -15,7 +15,7 @@ const NotFound = () => {
                Go to Home
             </button>
          </Link>
-      </div>
+      </>
    )
 }
 

@@ -60,11 +60,14 @@ function AvatarWithUserDropdown() {
                <Avatar
                   alt='user name'
                   withBorder={true}
-                  className=' p-0.5 w-11 h-11'
+                  className=' p-0.5 w-10 h-10'
                   src='https://docs.material-tailwind.com/img/face-2.jpg'
                />
             </Button>
          </MenuHandler>
+         <Typography variant='h6' className='xl:pt-0 pt-2'>
+            User Name
+         </Typography>
          <MenuList className='p-1 min-w-[40px] items-center'>
             {profileMenuItems.map(({ label, icon }, key) => {
                const isLastItem = key === profileMenuItems.length - 1
