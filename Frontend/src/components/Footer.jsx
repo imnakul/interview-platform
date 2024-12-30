@@ -6,7 +6,7 @@ function Footer() {
    return (
       <footer
          color='transparent'
-         className='max-w-7xl mx-auto my-auto rounded-xl bg-white/50 py-3 xl:py-2 px-3'
+         className='absolute bottom-0 left-0 xl:left-28 xl:min-w-[85%] min-w-full rounded-xl bg-white/50 py-3 xl:py-2 px-3'
       >
          <div className='flex flex-row flex-wrap items-center justify-around gap-y-6 gap-x-24 xl:gap-x-12 text-center md:justify-between'>
             {/* <img src='/interview.png' alt='logo-ct' className='w-8 h-8' /> */}

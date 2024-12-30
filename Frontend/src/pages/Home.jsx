@@ -54,7 +54,8 @@ function Home() {
                <h4 className=' text-gray-800 dark:text-purple-400 mt-0 mb-2.5 font-extrabold text-xl text-center'>
                   A Platform for Collaborative Inteviews.
                </h4>
-               <div className='flex justify-center gap-6 mt-6 xl:mb-[3.15rem] mb-24'>
+               {/* xl:mb-[3.15rem] mb-24 */}
+               <div className='flex justify-center gap-6 mt-6'>
                   <div className=' bg-transparent border-black flex justify-center items-center gap-3 xl:gap-5 p-2 mt-1'>
                      {/* user  */}
                      <div className='flex flex-col items-center border border-black p-2 m-1 w-44 xl:w-64 rounded-lg  bg-white/40'>
